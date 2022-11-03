@@ -92,8 +92,7 @@ endif()
 
 if( CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR )
 
-    # unit testing
-    if( codex_unit_tests )
+    if( codex.tests )
         include( cmake/unit_testing.cmake )
     endif()
 
