@@ -74,6 +74,7 @@ if( codex.python )
 
   pybind11_add_module( codex.python
       python/src/codex.python.cpp
+      python/src/MetaData.python.cpp
       )
 
   target_link_libraries( codex.python PRIVATE codex )

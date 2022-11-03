@@ -7,6 +7,9 @@
 // namespace aliases
 namespace python = pybind11;
 
+// declarations
+void wrapMetaData( python::module& );
+
 /**
  *  @brief codex python bindings
  *
@@ -15,8 +18,6 @@ namespace python = pybind11;
  */
 PYBIND11_MODULE( codex, module ) {
 
-  module.def( "add",
-              [] ( int left, int right )
-                 { return left + right; }, 
-              "A function that adds two numbers" );
+  // wrap covariance matrix components
+  wrapMetaData( module );
 }
