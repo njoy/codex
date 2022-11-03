@@ -15,4 +15,8 @@ namespace python = pybind11;
  */
 PYBIND11_MODULE( codex, module ) {
 
+  module.def( "add",
+              [] ( int left, int right )
+                 { return left + right; }, 
+              "A function that adds two numbers" );
 }
