@@ -7,6 +7,11 @@
 // namespace aliases
 namespace python = pybind11;
 
+int add( int i, int j ) {
+
+    return i + j;
+}
+
 /**
  *  @brief codex python bindings
  *
@@ -15,4 +20,5 @@ namespace python = pybind11;
  */
 PYBIND11_MODULE( codex, module ) {
 
+  module.def( "add", &add, "A function that adds two numbers" );
 }

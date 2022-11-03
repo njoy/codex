@@ -73,7 +73,6 @@ target_link_libraries( codex
 if( codex.python )
 
   pybind11_add_module( codex.python
-      EXCLUDE_FROM_ALL
       python/src/codex.python.cpp
       )
 
