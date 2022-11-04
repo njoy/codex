@@ -17,5 +17,7 @@ add_subdirectory( src/codex/MetaData/test )
 #######################################################################
 
 if( codex.python )
-#  add_subdirectory( python/test )
+
+  add_subdirectory( python/test )
+
 endif()
