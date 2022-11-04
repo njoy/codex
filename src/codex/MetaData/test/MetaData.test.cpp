@@ -35,7 +35,7 @@ SCENARIO( "MetaData" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "invalid data for a section::Type< 3 >" ) {
+  GIVEN( "invalid data for a MetaData" ) {
 
     WHEN( "the energy grid does not have at least 2 elements" ) {
 
@@ -75,5 +75,5 @@ SCENARIO( "MetaData" ) {
                                 std::move( wrong ) ) );
       } // THEN
     } // WHEN
-  } // THEN
+  } // GIVEN
 } // SCENARIO

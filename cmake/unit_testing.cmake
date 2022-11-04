@@ -11,6 +11,7 @@ enable_testing()
 #######################################################################
 
 add_subdirectory( src/codex/MetaData/test )
+add_subdirectory( src/codex/CovarianceBlock/test )
 
 #######################################################################
 # python tests
