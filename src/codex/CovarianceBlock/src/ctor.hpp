@@ -41,13 +41,16 @@ CovarianceBlock( MetaData row, MetaData column, Matrix< double > matrix ) :
 }
 
 /**
-*  @brief Constructor for an off-diagonal covariance block
-*
-*  @param[in] nuclide    the nuclide identifier
-*  @param[in] reaction   the reaction identifier
-*  @param[in] energies   the energy boundaries
-*  @param[in] matrix     the covariance matrix
-*/
+ *  @brief Constructor for an off-diagonal covariance block
+ *
+ *  @param[in] rowNuclide       the row nuclide identifier
+ *  @param[in] rowReaction      the row reaction identifier
+ *  @param[in] rowEnergies      the row energy boundaries
+ *  @param[in] columnNuclide    the row nuclide identifier
+ *  @param[in] columnReaction   the row reaction identifier
+ *  @param[in] columnEnergies   the row energy boundaries
+ *  @param[in] matrix           the covariance matrix
+ */
 CovarianceBlock( NuclideID rowNuclide,
                  ReactionID rowReaction,
                  std::vector< double > rowEnergies,

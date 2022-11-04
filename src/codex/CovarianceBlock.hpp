@@ -56,7 +56,7 @@ namespace codex {
     }
 
     /**
-     *  @brief Return whether or not this covariance block is a diagonal block
+     *  @brief Return whether or not this covariance block is an off diagonal block
      */
     bool isOffDiagonal() const {
 

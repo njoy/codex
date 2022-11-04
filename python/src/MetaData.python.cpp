@@ -33,7 +33,7 @@ void wrapMetaData( python::module& module ) {
     python::arg( "nuclide" ), python::arg( "reaction" ), python::arg( "energies" ),
     "Initialise the meta data\n\n"
     "Arguments:\n"
-    "    self       the neta data\n"
+    "    self       the meta data\n"
     "    nuclide    the nuclide identifier\n"
     "    reaction   the reaction identifier\n"
     "    energies   the energy boundaries"
