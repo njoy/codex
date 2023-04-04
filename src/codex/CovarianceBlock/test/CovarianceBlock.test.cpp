@@ -69,6 +69,18 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( 1. == Approx( chunk.uncertainties()[0] ) );
       CHECK( 2. == Approx( chunk.uncertainties()[1] ) );
       CHECK( 3. == Approx( chunk.uncertainties()[2] ) );
+
+      CHECK( 3 == chunk.correlations().rows() );
+      CHECK( 3 == chunk.correlations().cols() );
+      CHECK( 1. == chunk.correlations()(0,0) );
+      CHECK( 1. == chunk.correlations()(0,1) );
+      CHECK( 1. == chunk.correlations()(0,2) );
+      CHECK( 1. == chunk.correlations()(1,0) );
+      CHECK( 1. == chunk.correlations()(1,1) );
+      CHECK( 5. / 6. == chunk.correlations()(1,2) );
+      CHECK( 1. == chunk.correlations()(2,0) );
+      CHECK( 5. / 6. == chunk.correlations()(2,1) );
+      CHECK( 1. == chunk.correlations()(2,2) );
     } // THEN
   } // GIVEN
 
