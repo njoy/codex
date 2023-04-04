@@ -65,7 +65,7 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( 5. == chunk.covariances()(2,1) );
       CHECK( 9. == chunk.covariances()(2,2) );
 
-      CHECK( 3 == chunk.uncertainties() );
+      CHECK( 3 == chunk.uncertainties().size() );
       CHECK( 1. == Approx( chunk.uncertainties()[0] ) );
       CHECK( 2. == Approx( chunk.uncertainties()[1] ) );
       CHECK( 3. == Approx( chunk.uncertainties()[2] ) );
