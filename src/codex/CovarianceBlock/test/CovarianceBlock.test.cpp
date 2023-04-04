@@ -35,6 +35,7 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( "U235" == chunk.row().nuclide() );
       CHECK( "elastic" == chunk.row().reaction() );
       CHECK( 4 == chunk.row().energies().size() );
+      CHECK( 3 == chunk.row().numberGroups() );
       CHECK( 1e-5 == Approx( chunk.row().energies()[0] ) );
       CHECK( 1.   == Approx( chunk.row().energies()[1] ) );
       CHECK( 1e+6 == Approx( chunk.row().energies()[2] ) );
@@ -43,6 +44,7 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( "U235" == chunk.column().nuclide() );
       CHECK( "elastic" == chunk.column().reaction() );
       CHECK( 4 == chunk.column().energies().size() );
+      CHECK( 3 == chunk.column().numberGroups() );
       CHECK( 1e-5 == Approx( chunk.column().energies()[0] ) );
       CHECK( 1.   == Approx( chunk.column().energies()[1] ) );
       CHECK( 1e+6 == Approx( chunk.column().energies()[2] ) );
@@ -51,17 +53,17 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( false == chunk.isOffDiagonal() );
       CHECK( true == chunk.isDiagonal() );
 
-      CHECK( 3 == chunk.matrix().rows() );
-      CHECK( 3 == chunk.matrix().cols() );
-      CHECK( 1. == chunk.matrix()(0,0) );
-      CHECK( 2. == chunk.matrix()(0,1) );
-      CHECK( 3. == chunk.matrix()(0,2) );
-      CHECK( 2. == chunk.matrix()(1,0) );
-      CHECK( 4. == chunk.matrix()(1,1) );
-      CHECK( 5. == chunk.matrix()(1,2) );
-      CHECK( 3. == chunk.matrix()(2,0) );
-      CHECK( 5. == chunk.matrix()(2,1) );
-      CHECK( 6. == chunk.matrix()(2,2) );
+      CHECK( 3 == chunk.covariances().rows() );
+      CHECK( 3 == chunk.covariances().cols() );
+      CHECK( 1. == chunk.covariances()(0,0) );
+      CHECK( 2. == chunk.covariances()(0,1) );
+      CHECK( 3. == chunk.covariances()(0,2) );
+      CHECK( 2. == chunk.covariances()(1,0) );
+      CHECK( 4. == chunk.covariances()(1,1) );
+      CHECK( 5. == chunk.covariances()(1,2) );
+      CHECK( 3. == chunk.covariances()(2,0) );
+      CHECK( 5. == chunk.covariances()(2,1) );
+      CHECK( 6. == chunk.covariances()(2,2) );
     } // THEN
   } // GIVEN
 
@@ -95,6 +97,7 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( "U235" == chunk.row().nuclide() );
       CHECK( "elastic" == chunk.row().reaction() );
       CHECK( 4 == chunk.row().energies().size() );
+      CHECK( 3 == chunk.row().numberGroups() );
       CHECK( 1e-5 == Approx( chunk.row().energies()[0] ) );
       CHECK( 1.   == Approx( chunk.row().energies()[1] ) );
       CHECK( 1e+6 == Approx( chunk.row().energies()[2] ) );
@@ -103,6 +106,7 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( "U238" == chunk.column().nuclide() );
       CHECK( "fission" == chunk.column().reaction() );
       CHECK( 3 == chunk.column().energies().size() );
+      CHECK( 2 == chunk.column().numberGroups() );
       CHECK( 1e-5 == Approx( chunk.column().energies()[0] ) );
       CHECK( 2.   == Approx( chunk.column().energies()[1] ) );
       CHECK( 2e+7 == Approx( chunk.column().energies()[2] ) );
@@ -110,14 +114,14 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( true == chunk.isOffDiagonal() );
       CHECK( false == chunk.isDiagonal() );
 
-      CHECK( 3 == chunk.matrix().rows() );
-      CHECK( 2 == chunk.matrix().cols() );
-      CHECK( 1. == chunk.matrix()(0,0) );
-      CHECK( 2. == chunk.matrix()(0,1) );
-      CHECK( 3. == chunk.matrix()(1,0) );
-      CHECK( 4. == chunk.matrix()(1,1) );
-      CHECK( 5. == chunk.matrix()(2,0) );
-      CHECK( 6. == chunk.matrix()(2,1) );
+      CHECK( 3 == chunk.covariances().rows() );
+      CHECK( 2 == chunk.covariances().cols() );
+      CHECK( 1. == chunk.covariances()(0,0) );
+      CHECK( 2. == chunk.covariances()(0,1) );
+      CHECK( 3. == chunk.covariances()(1,0) );
+      CHECK( 4. == chunk.covariances()(1,1) );
+      CHECK( 5. == chunk.covariances()(2,0) );
+      CHECK( 6. == chunk.covariances()(2,1) );
     } // THEN
   } // GIVEN
 

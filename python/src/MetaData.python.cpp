@@ -55,5 +55,11 @@ void wrapMetaData( python::module& module ) {
     "energies",
     &Component::energies,
     "The energy boundaries"
+  )
+  .def_property_readonly(
+
+    "number_groups",
+    &Component::numberGroups,
+    "The number of energy groups"
   );
 }
