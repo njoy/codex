@@ -16,11 +16,13 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ ubuntu-18.04, macos-10.15 ]
-        cxx: [ clang++, g++-9 ]
+        os: [ ubuntu-20.04, macos-11 ]
+        cxx: [ clang++, g++-10 ]
         build_type: [ Debug, Release ]
 
     steps:
+    - name: Install numpy
+      run: pip3 install numpy
     - name: which CXX
       run: |
         which ${{matrix.cxx}}
