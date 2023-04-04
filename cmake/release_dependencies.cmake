@@ -17,13 +17,12 @@ FetchContent_Declare( disco
 
 FetchContent_Declare( eigen
     GIT_REPOSITORY  https://gitlab.com/libeigen/eigen.git
-    GIT_TAG         dc252fbf00079ccab57948a164b1421703fe4361 # tag: 3.3.8
+    GIT_TAG         3147391d946bb4b6c68edd901f2add6ac1f31f8c # tag: 3.4.0
     )
-set( BUILD_TESTING CACHE BOOL OFF )
 
 FetchContent_Declare( ENDFtk
     GIT_REPOSITORY  https://github.com/njoy/ENDFtk
-    GIT_TAG         da5275f7a96e68f4da25cc842c602de108104d1c
+    GIT_TAG         9f3098a9c7dcdf26a9edfd169e4e2f4098630b63
     )
 
 FetchContent_Declare( hana-adapter
@@ -43,7 +42,7 @@ FetchContent_Declare( Log
 
 FetchContent_Declare( pybind11
     GIT_REPOSITORY  https://github.com/pybind/pybind11
-    GIT_TAG         f1abf5d9159b805674197f6bc443592e631c9130 # tag: v2.6.1
+    GIT_TAG         80dc998efced8ceb2be59756668a7e90e8bef917 # tag: v2.10.1
     )
 
 FetchContent_Declare( range-v3
