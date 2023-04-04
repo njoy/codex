@@ -22,6 +22,7 @@ FetchContent_Declare( ENDFtk
     GIT_TAG         develop
     GIT_SHALLOW     TRUE
     )
+set( ENDFtk.python CACHE BOOL OFF )
 
 FetchContent_Declare( eigen
     GIT_REPOSITORY  https://gitlab.com/libeigen/eigen.git

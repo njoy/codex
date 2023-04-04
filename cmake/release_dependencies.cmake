@@ -19,11 +19,13 @@ FetchContent_Declare( eigen
     GIT_REPOSITORY  https://gitlab.com/libeigen/eigen.git
     GIT_TAG         3147391d946bb4b6c68edd901f2add6ac1f31f8c # tag: 3.4.0
     )
+set( BUILD_TESTING CACHE BOOL OFF )
 
 FetchContent_Declare( ENDFtk
     GIT_REPOSITORY  https://github.com/njoy/ENDFtk
     GIT_TAG         9f3098a9c7dcdf26a9edfd169e4e2f4098630b63
     )
+set( ENDFtk.python CACHE BOOL OFF )
 
 FetchContent_Declare( hana-adapter
     GIT_REPOSITORY  https://github.com/njoy/hana-adapter
