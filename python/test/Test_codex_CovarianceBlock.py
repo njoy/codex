@@ -16,8 +16,8 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
         chunk = CovarianceBlock( nuclide = 'U235', reaction = 'elastic',
                                  energies = [ 1e-5, 1., 1e+6, 2e+7 ],
                                  matrix = numpy.array( [ [ 1., 2., 3. ],
-                                                         [ 2., 4., 5. ],
-                                                         [ 3., 5., 6. ] ] ) )
+                                                         [ 2., 4., 6. ],
+                                                         [ 3., 6., 9. ] ] ) )
 
         # verify content
         self.assertEqual( 'U235', chunk.row.nuclide )
@@ -46,10 +46,24 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
         self.assertAlmostEqual( 3., chunk.covariances[0,2] )
         self.assertAlmostEqual( 2., chunk.covariances[1,0] )
         self.assertAlmostEqual( 4., chunk.covariances[1,1] )
-        self.assertAlmostEqual( 5., chunk.covariances[1,2] )
+        self.assertAlmostEqual( 6., chunk.covariances[1,2] )
         self.assertAlmostEqual( 3., chunk.covariances[2,0] )
-        self.assertAlmostEqual( 5., chunk.covariances[2,1] )
-        self.assertAlmostEqual( 6., chunk.covariances[2,2] )
+        self.assertAlmostEqual( 6., chunk.covariances[2,1] )
+        self.assertAlmostEqual( 9., chunk.covariances[2,2] )
+
+        self.assertAlmostEqual( 1., chunk.uncertainties[0] )
+        self.assertAlmostEqual( 2., chunk.uncertainties[1] )
+        self.assertAlmostEqual( 3., chunk.uncertainties[2] )
+
+        self.assertAlmostEqual( 1., chunk.correlations[0,0] )
+        self.assertAlmostEqual( 1., chunk.correlations[0,1] )
+        self.assertAlmostEqual( 1., chunk.correlations[0,2] )
+        self.assertAlmostEqual( 1., chunk.correlations[1,0] )
+        self.assertAlmostEqual( 1., chunk.correlations[1,1] )
+        self.assertAlmostEqual( 1., chunk.correlations[1,2] )
+        self.assertAlmostEqual( 1., chunk.correlations[2,0] )
+        self.assertAlmostEqual( 1., chunk.correlations[2,1] )
+        self.assertAlmostEqual( 1., chunk.correlations[2,2] )
 
     def test_failures( self ) :
 

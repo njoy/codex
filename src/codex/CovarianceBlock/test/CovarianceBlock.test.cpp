@@ -22,9 +22,9 @@ SCENARIO( "CovarianceBlock" ) {
     matrix(0,2) = 3.;
     matrix(1,0) = 2.;
     matrix(1,1) = 4.;
-    matrix(1,2) = 5.;
+    matrix(1,2) = 6.;
     matrix(2,0) = 3.;
-    matrix(2,1) = 5.;
+    matrix(2,1) = 6.;
     matrix(2,2) = 9.;
 
     CovarianceBlock chunk( std::move( nuclide ), std::move( reaction ),
@@ -60,9 +60,9 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( 3. == chunk.covariances()(0,2) );
       CHECK( 2. == chunk.covariances()(1,0) );
       CHECK( 4. == chunk.covariances()(1,1) );
-      CHECK( 5. == chunk.covariances()(1,2) );
+      CHECK( 6. == chunk.covariances()(1,2) );
       CHECK( 3. == chunk.covariances()(2,0) );
-      CHECK( 5. == chunk.covariances()(2,1) );
+      CHECK( 6. == chunk.covariances()(2,1) );
       CHECK( 9. == chunk.covariances()(2,2) );
 
       CHECK( 3 == chunk.uncertainties().size() );
@@ -77,9 +77,9 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( 1. == chunk.correlations()(0,2) );
       CHECK( 1. == chunk.correlations()(1,0) );
       CHECK( 1. == chunk.correlations()(1,1) );
-      CHECK( 5. / 6. == chunk.correlations()(1,2) );
+      CHECK( 1. == chunk.correlations()(1,2) );
       CHECK( 1. == chunk.correlations()(2,0) );
-      CHECK( 5. / 6. == chunk.correlations()(2,1) );
+      CHECK( 1. == chunk.correlations()(2,1) );
       CHECK( 1. == chunk.correlations()(2,2) );
     } // THEN
   } // GIVEN
