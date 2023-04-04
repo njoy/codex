@@ -41,15 +41,15 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
         self.assertEqual( False, chunk.is_off_diagonal )
         self.assertEqual( True, chunk.is_diagonal )
 
-        self.assertAlmostEqual( 1., chunk.matrix[0,0] )
-        self.assertAlmostEqual( 2., chunk.matrix[0,1] )
-        self.assertAlmostEqual( 3., chunk.matrix[0,2] )
-        self.assertAlmostEqual( 2., chunk.matrix[1,0] )
-        self.assertAlmostEqual( 4., chunk.matrix[1,1] )
-        self.assertAlmostEqual( 5., chunk.matrix[1,2] )
-        self.assertAlmostEqual( 3., chunk.matrix[2,0] )
-        self.assertAlmostEqual( 5., chunk.matrix[2,1] )
-        self.assertAlmostEqual( 6., chunk.matrix[2,2] )
+        self.assertAlmostEqual( 1., chunk.covariances[0,0] )
+        self.assertAlmostEqual( 2., chunk.covariances[0,1] )
+        self.assertAlmostEqual( 3., chunk.covariances[0,2] )
+        self.assertAlmostEqual( 2., chunk.covariances[1,0] )
+        self.assertAlmostEqual( 4., chunk.covariances[1,1] )
+        self.assertAlmostEqual( 5., chunk.covariances[1,2] )
+        self.assertAlmostEqual( 3., chunk.covariances[2,0] )
+        self.assertAlmostEqual( 5., chunk.covariances[2,1] )
+        self.assertAlmostEqual( 6., chunk.covariances[2,2] )
 
     def test_failures( self ) :
 
