@@ -88,9 +88,23 @@ void wrapCovarianceBlock( python::module& module ) {
   )
   .def_property_readonly(
 
-    "matrix",
-    &Component::matrix,
+    "covariances",
+    &Component::covariances,
     "The covariance matrix",
+    python::return_value_policy::reference_internal
+  )
+  .def_property_readonly(
+
+    "uncertainties",
+    &Component::uncertainties,
+    "The uncertainties",
+    python::return_value_policy::reference_internal
+  )
+  .def_property_readonly(
+
+    "correlations",
+    &Component::correlations,
+    "The correlation matrix",
     python::return_value_policy::reference_internal
   );
 }
