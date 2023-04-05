@@ -1,11 +1,18 @@
+/**
+ *  @brief Calculate the uncertainties from the covariances
+ *
+ *  The uncertainties can only be calculated from covariance blocks on the
+ *  diagonal of the covariance matrix. When this function is called on an
+ *  off diagonal block, the function has no effect.
+ */
 void calculateUncertainties() {
 
-  if ( ! this->uncertainties_ ) {
+  if ( this->isDiagonal() ) {
 
     std::vector< double > uncertainties;
     uncertainties.reserve( this->row().numberGroups() );
 
-    for ( const auto& value : this->covariances().diagonal().reshaped() ) {
+    for ( const auto& value : this->covariances().value().diagonal().reshaped() ) {
 
       uncertainties.emplace_back( std::sqrt( value ) );
     }
