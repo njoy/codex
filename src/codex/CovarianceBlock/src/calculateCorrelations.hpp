@@ -24,7 +24,7 @@ void calculateCorrelations() {
 }
 
 /**
- *  @brief Calculate the uncertainties (for off diagonal covariance blocks)
+ *  @brief Calculate the correlations (for off diagonal covariance blocks)
  *
  *  The correlations can only be calculated with input of the uncertainties
  *  for covariance blocks that are off diagonal in the covariance matrix.
