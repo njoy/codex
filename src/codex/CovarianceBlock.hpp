@@ -26,7 +26,7 @@ namespace codex {
     std::optional< MetaData > column_;
 
     /* fields - covariance matrix */
-    Matrix< double > matrix_;
+    std::optional< Matrix< double > > covariances_;
 
     /* fields - uncertainties and correlations */
     std::optional< std::vector< double > > uncertainties_;
@@ -34,8 +34,6 @@ namespace codex {
 
     /* auxiliary function */
     #include "codex/CovarianceBlock/src/verifyMatrix.hpp"
-    #include "codex/CovarianceBlock/src/calculateUncertainties.hpp"
-    #include "codex/CovarianceBlock/src/calculateCorrelations.hpp"
 
   public:
 
@@ -77,31 +75,35 @@ namespace codex {
      */
     bool isDiagonal() const {
 
-      return !this->isOffDiagonal();
+      return ! this->isOffDiagonal();
     }
 
     /**
      *  @brief Return the covariance matrix
      */
-    const Matrix< double >& covariances() const { return this->matrix_; }
+    const std::optional< Matrix< double > >& covariances() const {
+
+      return this->covariances_;
+    }
 
     /**
      *  @brief Return the uncertainties
      */
-    const std::vector< double >& uncertainties() {
+    const std::optional< std::vector< double > >& uncertainties() const {
 
-      this->calculateUncertainties();
-      return this->uncertainties_.value();
+      return this->uncertainties_;
     }
 
     /**
      *  @brief Return the correlation matrix
      */
-    const Matrix< double >& correlations() {
+    const std::optional< Matrix< double > >& correlations() const {
 
-      this->calculateCorrelations();
-      return this->correlations_.value();
+      return this->correlations_;
     }
+
+    #include "codex/CovarianceBlock/src/calculateUncertainties.hpp"
+    #include "codex/CovarianceBlock/src/calculateCorrelations.hpp"
   };
 
 } // codex namespace
