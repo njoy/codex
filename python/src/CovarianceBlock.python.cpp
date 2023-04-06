@@ -107,7 +107,7 @@ void wrapCovarianceBlock( python::module& module ) {
     "The correlation matrix",
     python::return_value_policy::reference_internal
   )
-  .def_property_readonly(
+  .def(
 
     "calculate_uncertainties",
     &Component::calculateUncertainties,

@@ -54,12 +54,12 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
         self.assertAlmostEqual( 6., chunk.covariances[2,1] )
         self.assertAlmostEqual( 9., chunk.covariances[2,2] )
 
-        self.calculate_uncertainties()
+        chunk.calculate_uncertainties()
         self.assertAlmostEqual( 1., chunk.uncertainties[0] )
         self.assertAlmostEqual( 2., chunk.uncertainties[1] )
         self.assertAlmostEqual( 3., chunk.uncertainties[2] )
 
-        self.calculate_correlations()
+        chunk.calculate_correlations()
         self.assertAlmostEqual( 1., chunk.correlations[0,0] )
         self.assertAlmostEqual( 1., chunk.correlations[0,1] )
         self.assertAlmostEqual( 1., chunk.correlations[0,2] )
@@ -112,10 +112,10 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
         self.assertAlmostEqual( 3., chunk.covariances[2,0] )
         self.assertAlmostEqual( 6., chunk.covariances[2,1] )
 
-        self.calculate_uncertainties()
+        chunk.calculate_uncertainties()
         self.assertEqual( None, chunk.uncertainties )
 
-        self.calculate_correlations( [ 1., 2., 3. ], [ 1., 2. ] )
+        chunk.calculate_correlations( [ 1., 2., 3. ], [ 1., 2. ] )
         self.assertAlmostEqual( 1., chunk.correlations[0,0] )
         self.assertAlmostEqual( 1., chunk.correlations[0,1] )
         self.assertAlmostEqual( 1., chunk.correlations[1,0] )
