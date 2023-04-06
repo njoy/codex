@@ -8,6 +8,13 @@ void verifyMatrix( const Matrix< double >& matrix,
     throw std::exception();
   }
 
+  // check if the matrix is symmetric
+  if ( matrix.transpose() != matrix ) {
+
+    Log::error( "The matrix for a diagonal covariance block must be symmetric" );
+    throw std::exception();
+  }
+
   // check if the matrix order is consistent with the energy boundaries
   if ( matrix.rows() != energies.size() - 1 ) {
 
