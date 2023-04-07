@@ -6,6 +6,7 @@ import unittest
 # local imports
 import numpy
 from codex import CovarianceMatrix
+from codex import CovarianceBlock
 
 class Test_codex_CovarianceMatrix( unittest.TestCase ) :
     """Unit test for the CovarianceMatrix class."""
@@ -14,15 +15,15 @@ class Test_codex_CovarianceMatrix( unittest.TestCase ) :
 
         # the data is given explicitly
         chunk = CovarianceMatrix(
-                    blocks = [ CovarianceMatrix( nuclide = 'U235', reaction = 'elastic',
-                                                 energies = [ 1e-5, 1., 1e+6, 2e+7 ],
-                                                 matrix = numpy.array( [ [ 1., 2., 3. ],
-                                                                         [ 2., 4., 6. ],
-                                                                         [ 3., 6., 9. ] ] ) ),
-                               CovarianceMatrix( nuclide = 'U235', reaction = 'fission',
-                                                 energies = [ 1e-5, 2., 2e+7 ],
-                                                 matrix = numpy.array( [ [ 16.,  0. ],
-                                                                         [  0., 25. ] ] ) ) ] )
+                    blocks = [ CovarianceBlock( nuclide = 'U235', reaction = 'elastic',
+                                                energies = [ 1e-5, 1., 1e+6, 2e+7 ],
+                                                matrix = numpy.array( [ [ 1., 2., 3. ],
+                                                                        [ 2., 4., 6. ],
+                                                                        [ 3., 6., 9. ] ] ) ),
+                               CovarianceBlock( nuclide = 'U235', reaction = 'fission',
+                                                energies = [ 1e-5, 2., 2e+7 ],
+                                                matrix = numpy.array( [ [ 16.,  0. ],
+                                                                        [  0., 25. ] ] ) ) ] )
 
         # verify content
         block = chunk.block( 0, 0 )
