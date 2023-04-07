@@ -17,13 +17,13 @@ class Test_codex_matrix( unittest.TestCase ) :
         notsquare = numpy.array( [ [ 1., 2. ], [ 2., 4. ], [ 3., 6. ] ] )
 
         # verify
-        self.assertEqual( true, is_square( square_symmetric ) )
-        self.assertEqual( true, is_square( square_notsymmetric ) )
-        self.assertEqual( false, is_square( notsquare ) )
+        self.assertEqual( True, is_square( square_symmetric ) )
+        self.assertEqual( True, is_square( square_notsymmetric ) )
+        self.assertEqual( False, is_square( notsquare ) )
 
-        self.assertEqual( true, is_symmetric( square_symmetric ) )
-        self.assertEqual( false, is_symmetric( square_notsymmetric ) )
-        self.assertEqual( false, is_symmetric( notsquare ) )
+        self.assertEqual( True, is_symmetric( square_symmetric ) )
+        self.assertEqual( False, is_symmetric( square_notsymmetric ) )
+        self.assertEqual( False, is_symmetric( notsquare ) )
 
 if __name__ == '__main__' :
 
