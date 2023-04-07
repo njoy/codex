@@ -11,6 +11,7 @@ namespace python = pybind11;
 void wrapMatrixFunctions( python::module& );
 void wrapMetaData( python::module& );
 void wrapCovarianceBlock( python::module& );
+void wrapCovarianceMatrix( python::module& );
 
 /**
  *  @brief codex python bindings
@@ -26,4 +27,5 @@ PYBIND11_MODULE( codex, module ) {
   // wrap covariance matrix components
   wrapMetaData( module );
   wrapCovarianceBlock( module );
+  wrapCovarianceMatrix( module );
 }
