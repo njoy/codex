@@ -2,6 +2,7 @@
 #define NJOY_CODEX_COVARIANCEBLOCK
 
 // system includes
+#include <vector>
 
 // other includes
 #include "Log.hpp"
