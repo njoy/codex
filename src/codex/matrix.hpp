@@ -34,7 +34,7 @@ namespace codex {
   template < typename T >
   bool isSymmetric( const Matrix< T >& matrix ) {
 
-    return matrix.isApprox( matrix.transpose() );
+    return isSquare( matrix ) && matrix.isApprox( matrix.transpose() );
   }
 
 } // codex namespace
