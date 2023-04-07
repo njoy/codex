@@ -1,12 +1,12 @@
 /**
  *  @brief Constructor for a diagonal covariance block
  *
- *  @param[in] metadata   the metadata associated with the covariance block
- *  @param[in] matrix     the covariance matrix
+ *  @param[in] metadata       the metadata associated with the covariance block
+ *  @param[in] covariances    the covariance matrix
  */
-CovarianceBlock( MetaData metadata, Matrix< double > matrix ) :
+CovarianceBlock( MetaData metadata, Matrix< double > covariances ) :
   row_( std::move( metadata ) ), column_( std::nullopt ),
-  covariances_( std::move( matrix ) ), uncertainties_( std::nullopt ),
+  covariances_( std::move( covariances ) ), uncertainties_( std::nullopt ),
   correlations_( std::nullopt ) {
 
   verifyMatrix( this->covariances().value(), this->row().energies() );
@@ -15,26 +15,27 @@ CovarianceBlock( MetaData metadata, Matrix< double > matrix ) :
 /**
  *  @brief Constructor for a diagonal covariance block
  *
- *  @param[in] nuclide    the nuclide identifier
- *  @param[in] reaction   the reaction identifier
- *  @param[in] energies   the energy boundaries
- *  @param[in] matrix     the covariance matrix
+ *  @param[in] nuclide        the nuclide identifier
+ *  @param[in] reaction       the reaction identifier
+ *  @param[in] energies       the energy boundaries
+ *  @param[in] covariances    the covariance matrix
  */
 CovarianceBlock( NuclideID nuclide, ReactionID reaction,
-                 std::vector< double > energies, Matrix< double > matrix ) :
+                 std::vector< double > energies,
+                 Matrix< double > covariances ) :
   CovarianceBlock( MetaData( std::move( nuclide ), std::move( reaction ),
                              std::move( energies ) ),
-                   std::move( matrix ) ) {}
+                   std::move( covariances ) ) {}
 
 /**
  *  @brief Constructor for an off-diagonal covariance block
  *
- *  @param[in] metadata   the metadata associated with the covariance block
- *  @param[in] matrix     the covariance matrix
+ *  @param[in] metadata       the metadata associated with the covariance block
+ *  @param[in] covariances    the covariance matrix
  */
-CovarianceBlock( MetaData row, MetaData column, Matrix< double > matrix ) :
+CovarianceBlock( MetaData row, MetaData column, Matrix< double > covariances ) :
   row_( std::move( row ) ), column_( std::move( column ) ),
-  covariances_( std::move( matrix ) ), uncertainties_( std::nullopt ),
+  covariances_( std::move( covariances ) ), uncertainties_( std::nullopt ),
   correlations_( std::nullopt ) {
 
   verifyMatrix( this->covariances().value(),
@@ -51,7 +52,7 @@ CovarianceBlock( MetaData row, MetaData column, Matrix< double > matrix ) :
  *  @param[in] columnNuclide    the row nuclide identifier
  *  @param[in] columnReaction   the row reaction identifier
  *  @param[in] columnEnergies   the row energy boundaries
- *  @param[in] matrix           the covariance matrix
+ *  @param[in] covariances      the covariance matrix
  */
 CovarianceBlock( NuclideID rowNuclide,
                  ReactionID rowReaction,
@@ -59,11 +60,11 @@ CovarianceBlock( NuclideID rowNuclide,
                  NuclideID columnNuclide,
                  ReactionID columnReaction,
                  std::vector< double > columnEnergies,
-                 Matrix< double > matrix ) :
+                 Matrix< double > covariances ) :
   CovarianceBlock( MetaData( std::move( rowNuclide ),
                              std::move( rowReaction ),
                              std::move( rowEnergies ) ),
                    MetaData( std::move( columnNuclide ),
                              std::move( columnReaction ),
                              std::move( columnEnergies ) ),
-                   std::move( matrix ) ) {}
+                   std::move( covariances ) ) {}

@@ -40,6 +40,54 @@ namespace codex {
     /* methods */
 
     /**
+     *  @brief Return a covariance block
+     *
+     *  @param i    the row index of the block to retrieve
+     *  @param j    the column index of the block to retrieve
+     */
+    const CovarianceBlock& block( std::size_t i, std::size_t j ) const {
+
+      //! @todo handle off diagonal and check range?
+      if ( i != j ) throw std::exception();
+      return this->blocks_[this->diagonal_[i]];
+    }
+
+    /**
+     *  @brief Return a covariance block
+     *
+     *  @param i    the row index of the block to retrieve
+     *  @param j    the column index of the block to retrieve
+     */
+    CovarianceBlock& block( std::size_t i, std::size_t j ) {
+
+      //! @todo handle off diagonal and check range?
+      if ( i != j ) throw std::exception();
+      return this->blocks_[this->diagonal_[i]];
+    }
+
+    /**
+     *  @brief Return the metadata for a given row
+     *
+     *  @param i    the row index of the metadata to retrieve
+     */
+    const MetaData& row( std::size_t i ) const {
+
+      //! @todo check range?
+      return this->blocks_[this->diagonal_[i]].row();
+    }
+
+    /**
+     *  @brief Return the metadata for a given column
+     *
+     *  @param i    the column index of the metadata to retrieve
+     */
+    const MetaData& column( std::size_t i ) const {
+
+      //! @todo check range?
+      return this->blocks_[this->diagonal_[i]].column();
+    }
+
+    /**
      *  @brief Return the covariance matrix order
      */
     std::size_t order() const {
