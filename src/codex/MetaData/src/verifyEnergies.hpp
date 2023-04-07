@@ -1,4 +1,4 @@
-void verifyEnergies( const std::vector< double >& energies ) {
+static void verifyEnergies( const std::vector< double >& energies ) {
 
   // at least two elements in the energy boundary values
   if ( energies.size() < 2 ) {

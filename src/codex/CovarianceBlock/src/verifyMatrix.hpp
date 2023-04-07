@@ -1,5 +1,5 @@
-void verifyMatrix( const Matrix< double >& matrix,
-                   const std::vector< double >& energies ) {
+static void verifyMatrix( const Matrix< double >& matrix,
+                          const std::vector< double >& energies ) {
 
   // check if the matrix is square
   if ( ! isSquare( matrix ) ) {
