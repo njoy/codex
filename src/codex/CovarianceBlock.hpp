@@ -4,9 +4,8 @@
 // system includes
 
 // other includes
-#include "Eigen/Core"
-#include <Eigen/Eigenvalues> 
 #include "Log.hpp"
+#include "codex/matrix.hpp"
 #include "codex/MetaData.hpp"
 
 namespace njoy {
