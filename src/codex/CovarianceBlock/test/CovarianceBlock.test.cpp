@@ -17,15 +17,9 @@ SCENARIO( "CovarianceBlock" ) {
     std::vector< double > energies = { 1e-5, 1., 1e+6, 2e+7 };
 
     Matrix< double > matrix( 3, 3 );
-    matrix(0,0) = 1.;
-    matrix(0,1) = 2.;
-    matrix(0,2) = 3.;
-    matrix(1,0) = 2.;
-    matrix(1,1) = 4.;
-    matrix(1,2) = 6.;
-    matrix(2,0) = 3.;
-    matrix(2,1) = 6.;
-    matrix(2,2) = 9.;
+    matrix << 1., 2., 3.,
+              2., 4., 6.,
+              3., 6., 9.;
 
     CovarianceBlock chunk( std::move( nuclide ), std::move( reaction ),
                            std::move( energies ), std::move( matrix ) );
@@ -125,12 +119,9 @@ SCENARIO( "CovarianceBlock" ) {
     std::vector< double > columnEnergies = { 1e-5, 2., 2e+7 };
 
     Matrix< double > matrix( 3, 2 );
-    matrix(0,0) = 1.;
-    matrix(0,1) = 2.;
-    matrix(1,0) = 2.;
-    matrix(1,1) = 4.;
-    matrix(2,0) = 3.;
-    matrix(2,1) = 6.;
+    matrix << 1., 2.,
+              2., 4.,
+              3., 6.;
 
     CovarianceBlock chunk( std::move( rowNuclide ),
                            std::move( rowReaction ),
@@ -218,12 +209,9 @@ SCENARIO( "CovarianceBlock" ) {
       std::vector< double > energies = { 1e-5, 1., 1e+6, 2e+7 };
 
       Matrix< double > matrix( 3, 2 );
-      matrix(0,0) = 1.;
-      matrix(0,1) = 2.;
-      matrix(1,0) = 3.;
-      matrix(1,1) = 4.;
-      matrix(2,0) = 5.;
-      matrix(2,1) = 6.;
+      matrix << 1., 2.,
+                3., 4.,
+                5., 6.;
 
       THEN( "an exception is thrown" ) {
 
@@ -241,15 +229,9 @@ SCENARIO( "CovarianceBlock" ) {
       std::vector< double > energies = { 1e-5, 1., 1e+6, 2e+7 };
 
       Matrix< double > matrix( 3, 3 );
-      matrix(0,0) = 1.;
-      matrix(0,1) = 2.;
-      matrix(0,2) = 3.;
-      matrix(1,0) = 2.;
-      matrix(1,1) = 4.;
-      matrix(1,2) = 6.;
-      matrix(2,0) = 100000.;
-      matrix(2,1) = 6.;
-      matrix(2,2) = 9.;
+      matrix << 1., 2., 3.,
+                2., 4., 6.,
+           100000., 6., 9.;
 
       THEN( "an exception is thrown" ) {
 
@@ -268,15 +250,9 @@ SCENARIO( "CovarianceBlock" ) {
       std::vector< double > energies = { 1e-5, 1., 2e+7 };
 
       Matrix< double > matrix( 3, 3 );
-      matrix(0,0) = 1.;
-      matrix(0,1) = 2.;
-      matrix(0,2) = 3.;
-      matrix(1,0) = 2.;
-      matrix(1,1) = 4.;
-      matrix(1,2) = 5.;
-      matrix(2,0) = 3.;
-      matrix(2,1) = 5.;
-      matrix(2,2) = 6.;
+      matrix << 1., 2., 3.,
+                2., 4., 5.,
+                3., 5., 6.;
 
       THEN( "an exception is thrown" ) {
 
@@ -298,12 +274,9 @@ SCENARIO( "CovarianceBlock" ) {
       std::vector< double > columnEnergies = { 1e-5, 2., 2e+7 };
 
       Matrix< double > matrix( 3, 2 );
-      matrix(0,0) = 1.;
-      matrix(0,1) = 2.;
-      matrix(1,0) = 3.;
-      matrix(1,1) = 4.;
-      matrix(2,0) = 5.;
-      matrix(2,1) = 6.;
+      matrix << 1., 2.,
+                3., 4.,
+                5., 6.;
 
       THEN( "an exception is thrown" ) {
 
@@ -328,12 +301,9 @@ SCENARIO( "CovarianceBlock" ) {
       std::vector< double > columnEnergies = { 1e-5, 2e+7 };
 
       Matrix< double > matrix( 3, 2 );
-      matrix(0,0) = 1.;
-      matrix(0,1) = 2.;
-      matrix(1,0) = 3.;
-      matrix(1,1) = 4.;
-      matrix(2,0) = 5.;
-      matrix(2,1) = 6.;
+      matrix << 1., 2.,
+                3., 4.,
+                5., 6.;
 
       THEN( "an exception is thrown" ) {
 

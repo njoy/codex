@@ -11,24 +11,17 @@ using namespace njoy::codex;
 SCENARIO( "matrix functions" ) {
 
   Matrix< double > square_symmetric( 2, 2 );
-  square_symmetric(0,0) = 1.;
-  square_symmetric(0,1) = 2.;
-  square_symmetric(1,0) = 2.;
-  square_symmetric(1,1) = 4.;
+  square_symmetric << 1., 2.,
+                      2., 4.;
 
   Matrix< double > square_notsymmetric( 2, 2 );
-  square_notsymmetric(0,0) = 1.;
-  square_notsymmetric(0,1) = 2.;
-  square_notsymmetric(1,0) = 1000.;
-  square_notsymmetric(1,1) = 4.;
+  square_notsymmetric << 1., 2.,
+                      1000., 4.;
 
   Matrix< double > notsquare( 3, 2 );
-  notsquare(0,0) = 1.;
-  notsquare(0,1) = 2.;
-  notsquare(1,0) = 2.;
-  notsquare(1,1) = 4.;
-  notsquare(1,0) = 3.;
-  notsquare(1,1) = 6.;
+  notsquare << 1., 2.,
+               2., 4.,
+               3., 6.;
 
   GIVEN( "isSquare" ) {
 

@@ -13,21 +13,13 @@ SCENARIO( "CovarianceMatrix" ) {
   GIVEN( "valid covariance blocks for a CovarianceMatrix" ) {
 
     Matrix< double > matrix00( 3, 3 );
-    matrix00(0,0) = 1.;
-    matrix00(0,1) = 2.;
-    matrix00(0,2) = 3.;
-    matrix00(1,0) = 2.;
-    matrix00(1,1) = 4.;
-    matrix00(1,2) = 6.;
-    matrix00(2,0) = 3.;
-    matrix00(2,1) = 6.;
-    matrix00(2,2) = 9.;
+    matrix00 << 1., 2., 3.,
+                2., 4., 6.,
+                3., 6., 9.;
 
     Matrix< double > matrix11( 2, 2 );
-    matrix11(0,0) = 16.;
-    matrix11(0,1) = 0.;
-    matrix11(1,0) = 0.;
-    matrix11(1,1) = 25.;
+    matrix11 << 16.,  0.,
+                 0., 25.;
 
     std::vector< CovarianceBlock > blocks = {
 
