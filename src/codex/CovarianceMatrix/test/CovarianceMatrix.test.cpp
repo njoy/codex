@@ -47,19 +47,11 @@ SCENARIO( "CovarianceMatrix" ) {
       CHECK( "U235" == block.column().nuclide() );
       CHECK( "fission" == block.column().reaction() );
 
-      auto metadata = chunk.row( 0 );
+      auto metadata = chunk.metadata( 0 );
       CHECK( "U235" == metadata.nuclide() );
       CHECK( "elastic" == metadata.reaction() );
 
-      metadata = chunk.row( 1 );
-      CHECK( "U235" == metadata.nuclide() );
-      CHECK( "fission" == metadata.reaction() );
-
-      metadata = chunk.column( 0 );
-      CHECK( "U235" == metadata.nuclide() );
-      CHECK( "elastic" == metadata.reaction() );
-
-      metadata = chunk.column( 1 );
+      metadata = chunk.metadata( 1 );
       CHECK( "U235" == metadata.nuclide() );
       CHECK( "fission" == metadata.reaction() );
 

@@ -52,39 +52,28 @@ namespace codex {
       return this->blocks_[this->diagonal_[i]];
     }
 
-    /**
-     *  @brief Return a covariance block
-     *
-     *  @param i    the row index of the block to retrieve
-     *  @param j    the column index of the block to retrieve
-     */
-    CovarianceBlock& block( std::size_t i, std::size_t j ) {
+//    /**
+//     *  @brief Return a covariance block
+//     *
+//     *  @param i    the row index of the block to retrieve
+//     *  @param j    the column index of the block to retrieve
+//     */
+//    CovarianceBlock& block( std::size_t i, std::size_t j ) {
+//
+//      //! @todo handle off diagonal and check range?
+//      if ( i != j ) throw std::exception();
+//      return this->blocks_[this->diagonal_[i]];
+//    }
 
-      //! @todo handle off diagonal and check range?
-      if ( i != j ) throw std::exception();
-      return this->blocks_[this->diagonal_[i]];
-    }
-
     /**
-     *  @brief Return the metadata for a given row
+     *  @brief Return the metadata for a given row or column
      *
-     *  @param i    the row index of the metadata to retrieve
+     *  @param i    the index of the metadata to retrieve
      */
-    const MetaData& row( std::size_t i ) const {
+    const MetaData& metadata( std::size_t i ) const {
 
       //! @todo check range?
       return this->blocks_[this->diagonal_[i]].row();
-    }
-
-    /**
-     *  @brief Return the metadata for a given column
-     *
-     *  @param i    the column index of the metadata to retrieve
-     */
-    const MetaData& column( std::size_t i ) const {
-
-      //! @todo check range?
-      return this->blocks_[this->diagonal_[i]].column();
     }
 
     /**
