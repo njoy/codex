@@ -67,7 +67,7 @@ SCENARIO( "MetaData" ) {
 
       NuclideID nuclide( "U235" );
       ReactionID reaction( "elastic" );
-      std::vector< double > wrong = { 2e+7, 1., 1., 1e-5 };
+      std::vector< double > wrong = { 1e-5, 1., 1., 2e+7 };
 
       THEN( "an exception is thrown" ) {
 
