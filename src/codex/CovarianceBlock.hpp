@@ -45,12 +45,12 @@ namespace codex {
     /**
      *  @brief Return the row metadata
      */
-    const MetaData& row() const { return this->row_; }
+    const MetaData& rowMetadata() const { return this->row_; }
 
     /**
      *  @brief Return the column metadata
      */
-    const MetaData& column() const {
+    const MetaData& columnMetadata() const {
 
       if ( this->column_ ) {
 
@@ -65,7 +65,7 @@ namespace codex {
     /**
      *  @brief Return whether or not this covariance block is an off diagonal block
      */
-    bool isOffDiagonal() const {
+    bool isOffDiagonalBlock() const {
 
       return bool( this->column_ );
     }
@@ -73,9 +73,9 @@ namespace codex {
     /**
      *  @brief Return whether or not this covariance block is a diagonal block
      */
-    bool isDiagonal() const {
+    bool isDiagonalBlock() const {
 
-      return ! this->isOffDiagonal();
+      return ! this->isOffDiagonalBlock();
     }
 
     /**
