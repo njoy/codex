@@ -21,6 +21,8 @@ jobs:
         build_type: [ Debug, Release ]
 
     steps:
+    - name: Install numpy
+      run: pip3 install numpy
     - name: which CXX
       run: |
         which ${{matrix.cxx}}
