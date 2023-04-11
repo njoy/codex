@@ -22,17 +22,18 @@ FetchContent_Declare( ENDFtk
     GIT_TAG         develop
     GIT_SHALLOW     TRUE
     )
+set( ENDFtk.python CACHE BOOL OFF )
 
 FetchContent_Declare( eigen
     GIT_REPOSITORY  https://gitlab.com/libeigen/eigen.git
-    GIT_TAG         3.3.8
+    GIT_TAG         3.4.0
     GIT_SHALLOW     TRUE
     )
 set( BUILD_TESTING CACHE BOOL OFF )
 
 FetchContent_Declare( pybind11
     GIT_REPOSITORY  https://github.com/pybind/pybind11
-    GIT_TAG         v2.6.1
+    GIT_TAG         v2.10.1
     )
 
 #######################################################################
