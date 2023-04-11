@@ -12,7 +12,7 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
 
     def test_diagonal_covariance_block( self ) :
 
-        # the data is given explicitly
+        # the data is given explicitly - for a diagonal block
         chunk = CovarianceBlock( nuclide = 'U235', reaction = 'elastic',
                                  energies = [ 1e-5, 1., 1e+6, 2e+7 ],
                                  matrix = numpy.array( [ [ 1., 2., 3. ],
