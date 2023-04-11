@@ -8,13 +8,13 @@
  */
 void calculateCorrelations() {
 
-  if ( this->isDiagonal() ) {
+  if ( this->isDiagonalBlock() ) {
 
     this->calculateUncertainties();
 
-    DiagonalMatrix< double > temporary( this->row().numberGroups() );
+    DiagonalMatrix< double > temporary( this->rowMetadata().numberGroups() );
     temporary.setIdentity();
-    for ( unsigned int i = 0; i < this->row().numberGroups(); ++i ) {
+    for ( unsigned int i = 0; i < this->rowMetadata().numberGroups(); ++i ) {
 
       temporary.diagonal()[i] /= this->uncertainties().value()[i];
     }
@@ -36,16 +36,16 @@ void calculateCorrelations() {
 void calculateCorrelations( const std::vector< double >& row,
                             const std::vector< double >& column ) {
 
-  DiagonalMatrix< double > left( this->row().numberGroups() );
+  DiagonalMatrix< double > left( this->rowMetadata().numberGroups() );
   left.setIdentity();
-  for ( unsigned int i = 0; i < this->row().numberGroups(); ++i ) {
+  for ( unsigned int i = 0; i < this->rowMetadata().numberGroups(); ++i ) {
 
     left.diagonal()[i] /= row[i];
   }
 
-  DiagonalMatrix< double > right( this->column().numberGroups() );
+  DiagonalMatrix< double > right( this->columnMetadata().numberGroups() );
   right.setIdentity();
-  for ( unsigned int i = 0; i < this->column().numberGroups(); ++i ) {
+  for ( unsigned int i = 0; i < this->columnMetadata().numberGroups(); ++i ) {
 
     right.diagonal()[i] /= column[i];
   }

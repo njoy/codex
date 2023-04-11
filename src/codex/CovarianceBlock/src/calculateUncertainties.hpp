@@ -7,10 +7,10 @@
  */
 void calculateUncertainties() {
 
-  if ( this->isDiagonal() ) {
+  if ( this->isDiagonalBlock() ) {
 
     std::vector< double > uncertainties;
-    uncertainties.reserve( this->row().numberGroups() );
+    uncertainties.reserve( this->rowMetadata().numberGroups() );
 
     for ( const auto& value : this->covariances().value().diagonal().reshaped() ) {
 
