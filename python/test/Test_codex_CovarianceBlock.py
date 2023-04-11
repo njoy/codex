@@ -125,7 +125,7 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
         chunk.calculate_correlations( [ 1., 2., 3. ], [ 1., 2. ] )
         self.assertAlmostEqual( 1., chunk.correlations[0,0] )
         self.assertAlmostEqual( 1., chunk.correlations[0,1] )
-        self.assertAlmostEqual( 1., chunk.correlations[1,0] )
+        self.assertAlmostEqual( 1., chunk.correlations[1,0] ) 
         self.assertAlmostEqual( 1., chunk.correlations[1,1] )
         self.assertAlmostEqual( 1., chunk.correlations[2,0] )
         self.assertAlmostEqual( 1., chunk.correlations[2,1] )
