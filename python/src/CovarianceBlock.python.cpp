@@ -64,29 +64,32 @@ void wrapCovarianceBlock( python::module& module ) {
   )
   .def_property_readonly(
 
-    "row",
-    &Component::row,
+    "row_metadata",
+    &Component::rowMetadata,
     "The row metadata"
   )
   .def_property_readonly(
 
-    "column",
-    &Component::column,
+    "column_metadata",
+    &Component::columnMetadata,
     "The column metadata"
   )
   .def_property_readonly(
 
-    "is_off_diagonal",
-    &Component::isOffDiagonal,
+    "is_off_diagonal_block",
+    &Component::isOffDiagonalBlock,
     "Flag to indicate whether or not this covariance block is an off-diagonal block"
   )
   .def_property_readonly(
 
-    "is_diagonal",
-    &Component::isDiagonal,
+    "is_diagonal_block",
+    &Component::isDiagonalBlock,
     "Flag to indicate whether or not this covariance block is a diagonal block"
   )
   .def_property_readonly(
+
+    // to ensure the matrix is not copied: reference_internal is used
+    // see pybind11 documentation for Eigen bindings for more information
 
     "covariances",
     &Component::covariances,

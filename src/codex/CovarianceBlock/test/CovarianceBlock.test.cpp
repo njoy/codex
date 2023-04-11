@@ -32,26 +32,26 @@ SCENARIO( "CovarianceBlock" ) {
 
     THEN( "a CovarianceBlock can be constructed and members can be tested" ) {
 
-      CHECK( "U235" == chunk.row().nuclide() );
-      CHECK( "elastic" == chunk.row().reaction() );
-      CHECK( 4 == chunk.row().energies().size() );
-      CHECK( 3 == chunk.row().numberGroups() );
-      CHECK( 1e-5 == Approx( chunk.row().energies()[0] ) );
-      CHECK( 1.   == Approx( chunk.row().energies()[1] ) );
-      CHECK( 1e+6 == Approx( chunk.row().energies()[2] ) );
-      CHECK( 2e+7 == Approx( chunk.row().energies()[3] ) );
+      CHECK( "U235" == chunk.rowMetadata().nuclide() );
+      CHECK( "elastic" == chunk.rowMetadata().reaction() );
+      CHECK( 4 == chunk.rowMetadata().energies().size() );
+      CHECK( 3 == chunk.rowMetadata().numberGroups() );
+      CHECK( 1e-5 == Approx( chunk.rowMetadata().energies()[0] ) );
+      CHECK( 1.   == Approx( chunk.rowMetadata().energies()[1] ) );
+      CHECK( 1e+6 == Approx( chunk.rowMetadata().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.rowMetadata().energies()[3] ) );
 
-      CHECK( "U235" == chunk.column().nuclide() );
-      CHECK( "elastic" == chunk.column().reaction() );
-      CHECK( 4 == chunk.column().energies().size() );
-      CHECK( 3 == chunk.column().numberGroups() );
-      CHECK( 1e-5 == Approx( chunk.column().energies()[0] ) );
-      CHECK( 1.   == Approx( chunk.column().energies()[1] ) );
-      CHECK( 1e+6 == Approx( chunk.column().energies()[2] ) );
-      CHECK( 2e+7 == Approx( chunk.column().energies()[3] ) );
+      CHECK( "U235" == chunk.columnMetadata().nuclide() );
+      CHECK( "elastic" == chunk.columnMetadata().reaction() );
+      CHECK( 4 == chunk.columnMetadata().energies().size() );
+      CHECK( 3 == chunk.columnMetadata().numberGroups() );
+      CHECK( 1e-5 == Approx( chunk.columnMetadata().energies()[0] ) );
+      CHECK( 1.   == Approx( chunk.columnMetadata().energies()[1] ) );
+      CHECK( 1e+6 == Approx( chunk.columnMetadata().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.columnMetadata().energies()[3] ) );
 
-      CHECK( false == chunk.isOffDiagonal() );
-      CHECK( true == chunk.isDiagonal() );
+      CHECK( false == chunk.isOffDiagonalBlock() );
+      CHECK( true == chunk.isDiagonalBlock() );
 
       CHECK( std::nullopt != chunk.covariances() );
       CHECK( std::nullopt == chunk.uncertainties() );
@@ -142,25 +142,25 @@ SCENARIO( "CovarianceBlock" ) {
 
     THEN( "a CovarianceBlock can be constructed and members can be tested" ) {
 
-      CHECK( "U235" == chunk.row().nuclide() );
-      CHECK( "elastic" == chunk.row().reaction() );
-      CHECK( 4 == chunk.row().energies().size() );
-      CHECK( 3 == chunk.row().numberGroups() );
-      CHECK( 1e-5 == Approx( chunk.row().energies()[0] ) );
-      CHECK( 1.   == Approx( chunk.row().energies()[1] ) );
-      CHECK( 1e+6 == Approx( chunk.row().energies()[2] ) );
-      CHECK( 2e+7 == Approx( chunk.row().energies()[3] ) );
+      CHECK( "U235" == chunk.rowMetadata().nuclide() );
+      CHECK( "elastic" == chunk.rowMetadata().reaction() );
+      CHECK( 4 == chunk.rowMetadata().energies().size() );
+      CHECK( 3 == chunk.rowMetadata().numberGroups() );
+      CHECK( 1e-5 == Approx( chunk.rowMetadata().energies()[0] ) );
+      CHECK( 1.   == Approx( chunk.rowMetadata().energies()[1] ) );
+      CHECK( 1e+6 == Approx( chunk.rowMetadata().energies()[2] ) );
+      CHECK( 2e+7 == Approx( chunk.rowMetadata().energies()[3] ) );
 
-      CHECK( "U238" == chunk.column().nuclide() );
-      CHECK( "fission" == chunk.column().reaction() );
-      CHECK( 3 == chunk.column().energies().size() );
-      CHECK( 2 == chunk.column().numberGroups() );
-      CHECK( 1e-5 == Approx( chunk.column().energies()[0] ) );
-      CHECK( 2.   == Approx( chunk.column().energies()[1] ) );
-      CHECK( 2e+7 == Approx( chunk.column().energies()[2] ) );
+      CHECK( "U238" == chunk.columnMetadata().nuclide() );
+      CHECK( "fission" == chunk.columnMetadata().reaction() );
+      CHECK( 3 == chunk.columnMetadata().energies().size() );
+      CHECK( 2 == chunk.columnMetadata().numberGroups() );
+      CHECK( 1e-5 == Approx( chunk.columnMetadata().energies()[0] ) );
+      CHECK( 2.   == Approx( chunk.columnMetadata().energies()[1] ) );
+      CHECK( 2e+7 == Approx( chunk.columnMetadata().energies()[2] ) );
 
-      CHECK( true == chunk.isOffDiagonal() );
-      CHECK( false == chunk.isDiagonal() );
+      CHECK( true == chunk.isOffDiagonalBlock() );
+      CHECK( false == chunk.isDiagonalBlock() );
 
       CHECK( std::nullopt != chunk.covariances() );
       CHECK( std::nullopt == chunk.uncertainties() );
@@ -318,7 +318,7 @@ SCENARIO( "CovarianceBlock" ) {
     } // WHEN
 
     WHEN( "the matrix order is not consistent with the energy boundaries "
-          "for an off-diagonal covariance block (rows)" ) {
+          "for an off-diagonal covariance block (columns)" ) {
 
       NuclideID rowNuclide( "U235" );
       ReactionID rowReaction( "elastic" );
