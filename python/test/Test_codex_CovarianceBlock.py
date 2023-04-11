@@ -12,7 +12,7 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
 
     def test_diagonal_covariance_block( self ) :
 
-        # the data is given explicitly
+        # the data is given explicitly - for a diagonal block
         chunk = CovarianceBlock( nuclide = 'U235', reaction = 'elastic',
                                  energies = [ 1e-5, 1., 1e+6, 2e+7 ],
                                  matrix = numpy.array( [ [ 1., 2., 3. ],
@@ -20,26 +20,26 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
                                                          [ 3., 6., 9. ] ] ) )
 
         # verify content
-        self.assertEqual( 'U235', chunk.row.nuclide )
-        self.assertEqual( 'elastic', chunk.row.reaction )
-        self.assertEqual( 4, len( chunk.row.energies ) )
-        self.assertEqual( 3, chunk.row.number_groups )
-        self.assertAlmostEqual( 1e-5, chunk.row.energies[0] )
-        self.assertAlmostEqual( 1.  , chunk.row.energies[1] )
-        self.assertAlmostEqual( 1e+6, chunk.row.energies[2] )
-        self.assertAlmostEqual( 2e+7, chunk.row.energies[3] )
+        self.assertEqual( 'U235', chunk.row_metadata.nuclide )
+        self.assertEqual( 'elastic', chunk.row_metadata.reaction )
+        self.assertEqual( 4, len( chunk.row_metadata.energies ) )
+        self.assertEqual( 3, chunk.row_metadata.number_groups )
+        self.assertAlmostEqual( 1e-5, chunk.row_metadata.energies[0] )
+        self.assertAlmostEqual( 1.  , chunk.row_metadata.energies[1] )
+        self.assertAlmostEqual( 1e+6, chunk.row_metadata.energies[2] )
+        self.assertAlmostEqual( 2e+7, chunk.row_metadata.energies[3] )
 
-        self.assertEqual( 'U235', chunk.column.nuclide )
-        self.assertEqual( 'elastic', chunk.column.reaction )
-        self.assertEqual( 4, len( chunk.column.energies ) )
-        self.assertEqual( 3, chunk.column.number_groups )
-        self.assertAlmostEqual( 1e-5, chunk.column.energies[0] )
-        self.assertAlmostEqual( 1.  , chunk.column.energies[1] )
-        self.assertAlmostEqual( 1e+6, chunk.column.energies[2] )
-        self.assertAlmostEqual( 2e+7, chunk.column.energies[3] )
+        self.assertEqual( 'U235', chunk.column_metadata.nuclide )
+        self.assertEqual( 'elastic', chunk.column_metadata.reaction )
+        self.assertEqual( 4, len( chunk.column_metadata.energies ) )
+        self.assertEqual( 3, chunk.column_metadata.number_groups )
+        self.assertAlmostEqual( 1e-5, chunk.column_metadata.energies[0] )
+        self.assertAlmostEqual( 1.  , chunk.column_metadata.energies[1] )
+        self.assertAlmostEqual( 1e+6, chunk.column_metadata.energies[2] )
+        self.assertAlmostEqual( 2e+7, chunk.column_metadata.energies[3] )
 
-        self.assertEqual( False, chunk.is_off_diagonal )
-        self.assertEqual( True, chunk.is_diagonal )
+        self.assertEqual( False, chunk.is_off_diagonal_block )
+        self.assertEqual( True, chunk.is_diagonal_block )
 
         self.assertEqual( None, chunk.uncertainties )
         self.assertEqual( None, chunk.correlations )
@@ -88,25 +88,25 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
                                                          [ 3., 6. ] ] ) )
 
         # verify content
-        self.assertEqual( 'U235', chunk.row.nuclide )
-        self.assertEqual( 'elastic', chunk.row.reaction )
-        self.assertEqual( 4, len( chunk.row.energies ) )
-        self.assertEqual( 3, chunk.row.number_groups )
-        self.assertAlmostEqual( 1e-5, chunk.row.energies[0] )
-        self.assertAlmostEqual( 1.  , chunk.row.energies[1] )
-        self.assertAlmostEqual( 1e+6, chunk.row.energies[2] )
-        self.assertAlmostEqual( 2e+7, chunk.row.energies[3] )
+        self.assertEqual( 'U235', chunk.row_metadata.nuclide )
+        self.assertEqual( 'elastic', chunk.row_metadata.reaction )
+        self.assertEqual( 4, len( chunk.row_metadata.energies ) )
+        self.assertEqual( 3, chunk.row_metadata.number_groups )
+        self.assertAlmostEqual( 1e-5, chunk.row_metadata.energies[0] )
+        self.assertAlmostEqual( 1.  , chunk.row_metadata.energies[1] )
+        self.assertAlmostEqual( 1e+6, chunk.row_metadata.energies[2] )
+        self.assertAlmostEqual( 2e+7, chunk.row_metadata.energies[3] )
 
-        self.assertEqual( 'U238', chunk.column.nuclide )
-        self.assertEqual( 'fission', chunk.column.reaction )
-        self.assertEqual( 3, len( chunk.column.energies ) )
-        self.assertEqual( 2, chunk.column.number_groups )
-        self.assertAlmostEqual( 1e-5, chunk.column.energies[0] )
-        self.assertAlmostEqual( 2.  , chunk.column.energies[1] )
-        self.assertAlmostEqual( 2e+7, chunk.column.energies[2] )
+        self.assertEqual( 'U238', chunk.column_metadata.nuclide )
+        self.assertEqual( 'fission', chunk.column_metadata.reaction )
+        self.assertEqual( 3, len( chunk.column_metadata.energies ) )
+        self.assertEqual( 2, chunk.column_metadata.number_groups )
+        self.assertAlmostEqual( 1e-5, chunk.column_metadata.energies[0] )
+        self.assertAlmostEqual( 2.  , chunk.column_metadata.energies[1] )
+        self.assertAlmostEqual( 2e+7, chunk.column_metadata.energies[2] )
 
-        self.assertEqual( True, chunk.is_off_diagonal )
-        self.assertEqual( False, chunk.is_diagonal )
+        self.assertEqual( True, chunk.is_off_diagonal_block )
+        self.assertEqual( False, chunk.is_diagonal_block )
 
         self.assertEqual( None, chunk.uncertainties )
         self.assertEqual( None, chunk.correlations )

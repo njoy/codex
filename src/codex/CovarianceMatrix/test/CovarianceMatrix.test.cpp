@@ -36,16 +36,16 @@ SCENARIO( "CovarianceMatrix" ) {
     THEN( "a CovarianceMatrix can be constructed and members can be tested" ) {
 
       auto block = chunk.block( 0, 0 );
-      CHECK( "U235" == block.row().nuclide() );
-      CHECK( "elastic" == block.row().reaction() );
-      CHECK( "U235" == block.column().nuclide() );
-      CHECK( "elastic" == block.column().reaction() );
+      CHECK( "U235" == block.rowMetadata().nuclide() );
+      CHECK( "elastic" == block.rowMetadata().reaction() );
+      CHECK( "U235" == block.columnMetadata().nuclide() );
+      CHECK( "elastic" == block.columnMetadata().reaction() );
 
       block = chunk.block( 1, 1 );
-      CHECK( "U235" == block.row().nuclide() );
-      CHECK( "fission" == block.row().reaction() );
-      CHECK( "U235" == block.column().nuclide() );
-      CHECK( "fission" == block.column().reaction() );
+      CHECK( "U235" == block.rowMetadata().nuclide() );
+      CHECK( "fission" == block.rowMetadata().reaction() );
+      CHECK( "U235" == block.columnMetadata().nuclide() );
+      CHECK( "fission" == block.columnMetadata().reaction() );
 
       auto metadata = chunk.metadata( 0 );
       CHECK( "U235" == metadata.nuclide() );

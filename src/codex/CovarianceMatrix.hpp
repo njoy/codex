@@ -73,7 +73,7 @@ namespace codex {
     const MetaData& metadata( std::size_t i ) const {
 
       //! @todo check range?
-      return this->blocks_[this->diagonal_[i]].row();
+      return this->blocks_[this->diagonal_[i]].rowMetadata();
     }
 
     /**

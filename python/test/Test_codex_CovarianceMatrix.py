@@ -27,16 +27,16 @@ class Test_codex_CovarianceMatrix( unittest.TestCase ) :
 
         # verify content
         block = chunk.block( 0, 0 )
-        self.assertEqual( 'U235', block.row.nuclide )
-        self.assertEqual( 'elastic', block.row.reaction )
-        self.assertEqual( 'U235', block.column.nuclide )
-        self.assertEqual( 'elastic', block.column.reaction )
+        self.assertEqual( 'U235', block.row_metadata.nuclide )
+        self.assertEqual( 'elastic', block.row_metadata.reaction )
+        self.assertEqual( 'U235', block.column_metadata.nuclide )
+        self.assertEqual( 'elastic', block.column_metadata.reaction )
 
         block = chunk.block( 1, 1 )
-        self.assertEqual( 'U235', block.row.nuclide )
-        self.assertEqual( 'fission', block.row.reaction )
-        self.assertEqual( 'U235', block.column.nuclide )
-        self.assertEqual( 'fission', block.column.reaction )
+        self.assertEqual( 'U235', block.row_metadata.nuclide )
+        self.assertEqual( 'fission', block.row_metadata.reaction )
+        self.assertEqual( 'U235', block.column_metadata.nuclide )
+        self.assertEqual( 'fission', block.column_metadata.reaction )
 
         metadata = chunk.metadata( 0 )
         self.assertEqual( 'U235', metadata.nuclide )

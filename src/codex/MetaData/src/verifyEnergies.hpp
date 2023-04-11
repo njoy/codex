@@ -19,6 +19,13 @@ static void verifyEnergies( const std::vector< double >& energies ) {
   if ( energies.end() != std::adjacent_find( energies.begin(), energies.end() ) ) {
 
     Log::error( "The energy boundary values do not appear to be unique" );
+
+    auto iter = std::adjacent_find( energies.begin(), energies.end() );
+    while ( iter != energies.end() ) {
+
+      Log::info( "Duplicate energy found: ", *iter );
+      iter = std::adjacent_find( ++iter, energies.end() );
+    }
     throw std::exception();
   }
 }

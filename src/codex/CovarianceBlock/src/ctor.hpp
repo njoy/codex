@@ -9,7 +9,7 @@ CovarianceBlock( MetaData metadata, Matrix< double > covariances ) :
   covariances_( std::move( covariances ) ), uncertainties_( std::nullopt ),
   correlations_( std::nullopt ) {
 
-  verifyMatrix( this->covariances().value(), this->row().energies() );
+  verifyMatrix( this->covariances().value(), this->rowMetadata().energies() );
 }
 
 /**
@@ -30,17 +30,19 @@ CovarianceBlock( NuclideID nuclide, ReactionID reaction,
 /**
  *  @brief Constructor for an off-diagonal covariance block
  *
- *  @param[in] metadata       the metadata associated with the covariance block
- *  @param[in] covariances    the covariance matrix
+ *  @param[in] rowMetadata       the row metadata
+ *  @param[in] columnMetadata    the column metadata
+ *  @param[in] covariances       the covariance matrix
  */
-CovarianceBlock( MetaData row, MetaData column, Matrix< double > covariances ) :
-  row_( std::move( row ) ), column_( std::move( column ) ),
-  covariances_( std::move( covariances ) ), uncertainties_( std::nullopt ),
+CovarianceBlock( MetaData rowMetadata, MetaData columnMetadata,
+                 Matrix< double > matrix ) :
+  row_( std::move( rowMetadata ) ), column_( std::move( columnMetadata ) ),
+  covariances_( std::move( matrix ) ), uncertainties_( std::nullopt ),
   correlations_( std::nullopt ) {
 
   verifyMatrix( this->covariances().value(),
-                this->row().energies(),
-                this->column().energies() );
+                this->rowMetadata().energies(),
+                this->columnMetadata().energies() );
 }
 
 /**
