@@ -6,9 +6,10 @@
  */
 CovarianceBlock( MetaData metadata, Matrix< double > matrix ) :
   row_( std::move( metadata ) ), column_( std::nullopt ),
-  matrix_( std::move( matrix ) ) {
+  covariances_( std::move( matrix ) ), uncertainties_( std::nullopt ),
+  correlations_( std::nullopt ) {
 
-  verifyMatrix( this->matrix(), this->row().energies() );
+  verifyMatrix( this->covariances().value(), this->row().energies() );
 }
 
 /**
@@ -33,9 +34,10 @@ CovarianceBlock( NuclideID nuclide, ReactionID reaction,
  */
 CovarianceBlock( MetaData row, MetaData column, Matrix< double > matrix ) :
   row_( std::move( row ) ), column_( std::move( column ) ),
-  matrix_( std::move( matrix ) ) {
+  covariances_( std::move( matrix ) ), uncertainties_( std::nullopt ),
+  correlations_( std::nullopt ) {
 
-  verifyMatrix( this->matrix(),
+  verifyMatrix( this->covariances().value(),
                 this->row().energies(),
                 this->column().energies() );
 }

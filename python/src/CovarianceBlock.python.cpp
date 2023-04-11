@@ -88,9 +88,74 @@ void wrapCovarianceBlock( python::module& module ) {
   )
   .def_property_readonly(
 
-    "matrix",
-    &Component::matrix,
+    "covariances",
+    &Component::covariances,
     "The covariance matrix",
     python::return_value_policy::reference_internal
+  )
+  .def_property_readonly(
+
+    "uncertainties",
+    &Component::uncertainties,
+    "The uncertainties",
+    python::return_value_policy::reference_internal
+  )
+  .def_property_readonly(
+
+    "correlations",
+    &Component::correlations,
+    "The correlation matrix",
+    python::return_value_policy::reference_internal
+  )
+  .def_property_readonly(
+
+    "eigenvalues",
+    &Component::eigenvalues,
+    "The eigenvalues",
+    python::return_value_policy::reference_internal
+  )
+  .def(
+
+    "calculate_uncertainties",
+    &Component::calculateUncertainties,
+    "Calculate the uncertainties from the covariances\n\n"
+    "The uncertainties can only be calculated from covariance blocks on the\n"
+    "diagonal of the covariance matrix. When this function is called on an\n"
+    "off diagonal block, the function has no effect."
+  )
+  .def(
+
+    "calculate_correlations",
+    python::overload_cast<>( &Component::calculateCorrelations ),
+    "Calculate the correlations (for covariance blocks on the diagonal)\n\n"
+    "The correlations can only be calculated without input of the uncertainties\n"
+    "for covariance blocks on the diagonal of the covariance matrix. When this\n"
+    "method is called on an off diagonal block, the method has no effect.\n"
+    "Uncertainties will be calculated and stored as well."
+  )
+  .def(
+
+    "calculate_correlations",
+    python::overload_cast<
+        const std::vector< double >&,
+        const std::vector< double >& >( &Component::calculateCorrelations ),
+    python::arg( "row" ), python::arg( "column" ),
+    "Calculate the uncertainties (for off diagonal covariance blocks)\n\n"
+    "The correlations can only be calculated with input of the uncertainties\n"
+    "for covariance blocks that are off diagonal in the covariance matrix.\n"
+    "Uncertainties will not be stored.\n\n"
+    "Arguments:\n"
+    "    self      the covariance block\n"
+    "    row       the uncertainties to be applied to each row\n"
+    "    column    the uncertainties to be applied to each column"
+  )
+  .def(
+
+    "calculate_eigenvalues",
+    &Component::calculateEigenvalues,
+    "Calculate the eigenvalues from the covariances\n\n"
+    "The eigenvalues can only be calculated from covariance blocks on the\n"
+    "diagonal of the covariance matrix. When this function is called on an\n"
+    "off diagonal block, the function has no effect."
   );
 }

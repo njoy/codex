@@ -2,9 +2,16 @@ void verifyMatrix( const Matrix< double >& matrix,
                    const std::vector< double >& energies ) {
 
   // check if the matrix is square
-  if ( matrix.rows() != matrix.cols() ) {
+  if ( ! isSquare( matrix ) ) {
 
     Log::error( "The matrix for a diagonal covariance block must be square" );
+    throw std::exception();
+  }
+
+  // check if the matrix is symmetric
+  if ( ! isSymmetric( matrix ) ) {
+
+    Log::error( "The matrix for a diagonal covariance block must be symmetric" );
     throw std::exception();
   }
 
