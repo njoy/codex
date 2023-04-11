@@ -74,8 +74,8 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
         self.assertAlmostEqual( 2.  , chunk.column_metadata.energies[1] )
         self.assertAlmostEqual( 2e+7, chunk.column_metadata.energies[2] )
 
-        self.assertEqual( True, chunk.is_off_diagonal )
-        self.assertEqual( False, chunk.is_diagonal )
+        self.assertEqual( True, chunk.is_off_diagonal_block )
+        self.assertEqual( False, chunk.is_diagonal_block )
 
         self.assertAlmostEqual( 1., chunk.matrix[0,0] )
         self.assertAlmostEqual( 2., chunk.matrix[0,1] )
