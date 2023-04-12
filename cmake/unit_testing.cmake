@@ -10,12 +10,15 @@ enable_testing()
 # Unit testing directories
 #######################################################################
 
-# add_subdirectory( src/codex/xxx/test )
+add_subdirectory( src/codex/MetaData/test )
+add_subdirectory( src/codex/CovarianceBlock/test )
 
 #######################################################################
 # python tests
 #######################################################################
 
 if( codex.python )
-#  add_subdirectory( python/test )
+
+  add_subdirectory( python/test )
+
 endif()
