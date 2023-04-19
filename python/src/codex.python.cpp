@@ -8,6 +8,7 @@
 namespace python = pybind11;
 
 // declarations
+void wrapMatrixFunctions( python::module& );
 void wrapMetaData( python::module& );
 void wrapCovarianceBlock( python::module& );
 
@@ -18,6 +19,9 @@ void wrapCovarianceBlock( python::module& );
  *  set on the PROPERTIES OUTPUT_NAME in the CMakeLists.txt file.
  */
 PYBIND11_MODULE( codex, module ) {
+
+  // wrap matrix functions
+  wrapMatrixFunctions( module );
 
   // wrap covariance matrix components
   wrapMetaData( module );

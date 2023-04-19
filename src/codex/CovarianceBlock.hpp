@@ -4,16 +4,12 @@
 // system includes
 
 // other includes
-#include "Eigen/Core"
 #include "Log.hpp"
+#include "codex/matrix.hpp"
 #include "codex/MetaData.hpp"
 
 namespace njoy {
 namespace codex {
-
-  /* type aliases */
-  template < typename T > using Matrix = Eigen::Matrix< T, Eigen::Dynamic, Eigen::Dynamic >;
-  template < typename T > using DiagonalMatrix = Eigen::DiagonalMatrix< T, Eigen::Dynamic >;
 
   /**
    *  @class
@@ -31,6 +27,9 @@ namespace codex {
     /* fields - uncertainties and correlations */
     std::optional< std::vector< double > > uncertainties_;
     std::optional< Matrix< double > > correlations_;
+
+    /* fields - eigenvalues */
+    std::optional< std::vector< double > > eigenvalues_;
 
     /* auxiliary function */
     #include "codex/CovarianceBlock/src/verifyMatrix.hpp"
@@ -102,8 +101,17 @@ namespace codex {
       return this->correlations_;
     }
 
+    /**
+     *  @brief Return the eigenvalues
+     */
+    const std::optional< std::vector< double > >& eigenvalues() const {
+
+      return this->eigenvalues_;
+    }
+
     #include "codex/CovarianceBlock/src/calculateUncertainties.hpp"
     #include "codex/CovarianceBlock/src/calculateCorrelations.hpp"
+    #include "codex/CovarianceBlock/src/calculateEigenvalues.hpp"
   };
 
 } // codex namespace

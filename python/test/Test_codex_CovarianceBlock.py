@@ -43,6 +43,7 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
 
         self.assertEqual( None, chunk.uncertainties )
         self.assertEqual( None, chunk.correlations )
+        self.assertEqual( None, chunk.eigenvalues )
 
         self.assertAlmostEqual( 1., chunk.covariances[0,0] )
         self.assertAlmostEqual( 2., chunk.covariances[0,1] )
@@ -69,6 +70,11 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
         self.assertAlmostEqual( 1., chunk.correlations[2,0] )
         self.assertAlmostEqual( 1., chunk.correlations[2,1] )
         self.assertAlmostEqual( 1., chunk.correlations[2,2] )
+
+        chunk.calculate_eigenvalues()
+        self.assertAlmostEqual( 0., chunk.eigenvalues[0] )
+        self.assertAlmostEqual( 0., chunk.eigenvalues[1] )
+        self.assertAlmostEqual( 14., chunk.eigenvalues[2] )
 
     def test_off_diagonal_covariance_block( self ) :
 
@@ -104,6 +110,7 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
 
         self.assertEqual( None, chunk.uncertainties )
         self.assertEqual( None, chunk.correlations )
+        self.assertEqual( None, chunk.eigenvalues )
 
         self.assertAlmostEqual( 1., chunk.covariances[0,0] )
         self.assertAlmostEqual( 2., chunk.covariances[0,1] )
@@ -118,10 +125,13 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
         chunk.calculate_correlations( [ 1., 2., 3. ], [ 1., 2. ] )
         self.assertAlmostEqual( 1., chunk.correlations[0,0] )
         self.assertAlmostEqual( 1., chunk.correlations[0,1] )
-        self.assertAlmostEqual( 1., chunk.correlations[1,0] )
+        self.assertAlmostEqual( 1., chunk.correlations[1,0] ) 
         self.assertAlmostEqual( 1., chunk.correlations[1,1] )
         self.assertAlmostEqual( 1., chunk.correlations[2,0] )
         self.assertAlmostEqual( 1., chunk.correlations[2,1] )
+
+        chunk.calculate_eigenvalues()
+        self.assertEqual( None, chunk.eigenvalues )
 
     def test_failures( self ) :
 

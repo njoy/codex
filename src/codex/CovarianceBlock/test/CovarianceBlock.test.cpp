@@ -56,6 +56,7 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( std::nullopt != chunk.covariances() );
       CHECK( std::nullopt == chunk.uncertainties() );
       CHECK( std::nullopt == chunk.correlations() );
+      CHECK( std::nullopt == chunk.eigenvalues() );
 
       CHECK( 3 == chunk.covariances().value().rows() );
       CHECK( 3 == chunk.covariances().value().cols() );
@@ -99,6 +100,18 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( 1. == chunk.correlations().value()(2,0) );
       CHECK( 1. == chunk.correlations().value()(2,1) );
       CHECK( 1. == chunk.correlations().value()(2,2) );
+    } // THEN
+
+    chunk.calculateEigenvalues();
+
+    THEN( "Eigenvalues can be calculated" ) {
+
+      CHECK( std::nullopt != chunk.eigenvalues() );
+
+      CHECK( 3 == chunk.eigenvalues().value().size() );
+      CHECK( 0. == Approx( chunk.eigenvalues().value()[0] ) );
+      CHECK( 0. == Approx( chunk.eigenvalues().value()[1] ) );
+      CHECK( 14. == Approx( chunk.eigenvalues().value()[2] ) );
     } // THEN
   } // GIVEN
 
@@ -187,6 +200,13 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( 1. == chunk.correlations().value()(2,0) );
       CHECK( 1. == chunk.correlations().value()(2,1) );
     } // THEN
+
+    chunk.calculateEigenvalues();
+
+    THEN( "Eigenvalues cannot be calculated" ) {
+
+      CHECK( std::nullopt == chunk.eigenvalues() );
+    } // THEN
   } // GIVEN
 
   GIVEN( "invalid data for a CovarianceBlock" ) {
@@ -204,6 +224,32 @@ SCENARIO( "CovarianceBlock" ) {
       matrix(1,1) = 4.;
       matrix(2,0) = 5.;
       matrix(2,1) = 6.;
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( CovarianceBlock( std::move( nuclide ),
+                                       std::move( reaction ),
+                                       std::move( energies ),
+                                       std::move( matrix ) ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the matrix is not symmetric for a diagonal covariance block" ) {
+
+      NuclideID nuclide( "U235" );
+      ReactionID reaction( "elastic" );
+      std::vector< double > energies = { 1e-5, 1., 1e+6, 2e+7 };
+
+      Matrix< double > matrix( 3, 3 );
+      matrix(0,0) = 1.;
+      matrix(0,1) = 2.;
+      matrix(0,2) = 3.;
+      matrix(1,0) = 2.;
+      matrix(1,1) = 4.;
+      matrix(1,2) = 6.;
+      matrix(2,0) = 100000.;
+      matrix(2,1) = 6.;
+      matrix(2,2) = 9.;
 
       THEN( "an exception is thrown" ) {
 

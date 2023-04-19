@@ -110,6 +110,13 @@ void wrapCovarianceBlock( python::module& module ) {
     "The correlation matrix",
     python::return_value_policy::reference_internal
   )
+  .def_property_readonly(
+
+    "eigenvalues",
+    &Component::eigenvalues,
+    "The eigenvalues",
+    python::return_value_policy::reference_internal
+  )
   .def(
 
     "calculate_uncertainties",
@@ -144,5 +151,14 @@ void wrapCovarianceBlock( python::module& module ) {
     "    self      the covariance block\n"
     "    row       the uncertainties to be applied to each row\n"
     "    column    the uncertainties to be applied to each column"
+  )
+  .def(
+
+    "calculate_eigenvalues",
+    &Component::calculateEigenvalues,
+    "Calculate the eigenvalues from the covariances\n\n"
+    "The eigenvalues can only be calculated from covariance blocks on the\n"
+    "diagonal of the covariance matrix. When this function is called on an\n"
+    "off diagonal block, the function has no effect."
   );
 }
