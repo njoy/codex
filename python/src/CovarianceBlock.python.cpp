@@ -33,14 +33,14 @@ void wrapCovarianceBlock( python::module& module ) {
 
     python::init< NuclideID, ReactionID, std::vector< double >, Matrix >(),
     python::arg( "nuclide" ), python::arg( "reaction" ),
-    python::arg( "energies" ), python::arg( "matrix" ),
+    python::arg( "energies" ), python::arg( "covariances" ),
     "Initialise a diagonal covariance block\n\n"
     "Arguments:\n"
-    "    self       the covariance block\n"
-    "    nuclide    the nuclide identifier\n"
-    "    reaction   the reaction identifier\n"
-    "    energies   the energy boundaries\n"
-    "    matrix     the covariance matrix"
+    "    self          the covariance block\n"
+    "    nuclide       the nuclide identifier\n"
+    "    reaction      the reaction identifier\n"
+    "    energies      the energy boundaries\n"
+    "    covariances   the covariance matrix"
   )
   .def(
 
@@ -50,7 +50,7 @@ void wrapCovarianceBlock( python::module& module ) {
     python::arg( "row_nuclide" ), python::arg( "row_reaction" ),
     python::arg( "row_energies" ), python::arg( "column_nuclide" ),
     python::arg( "column_reaction" ), python::arg( "column_energies" ),
-    python::arg( "matrix" ),
+    python::arg( "covariances" ),
     "Initialise an off-diagonal covariance block\n\n"
     "Arguments:\n"
     "    self              the covariance block\n"
@@ -60,7 +60,7 @@ void wrapCovarianceBlock( python::module& module ) {
     "    column_nuclide    the row nuclide identifier\n"
     "    column_reaction   the row reaction identifier\n"
     "    column_energies   the row energy boundaries\n"
-    "    matrix            the covariance matrix"
+    "    covariances       the covariance matrix"
   )
   .def_property_readonly(
 
@@ -98,9 +98,9 @@ void wrapCovarianceBlock( python::module& module ) {
   )
   .def_property_readonly(
 
-    "uncertainties",
-    &Component::uncertainties,
-    "The uncertainties",
+    "standard_deviations",
+    &Component::standardDeviations,
+    "The standard deviations",
     python::return_value_policy::reference_internal
   )
   .def_property_readonly(
@@ -119,10 +119,10 @@ void wrapCovarianceBlock( python::module& module ) {
   )
   .def(
 
-    "calculate_uncertainties",
-    &Component::calculateUncertainties,
-    "Calculate the uncertainties from the covariances\n\n"
-    "The uncertainties can only be calculated from covariance blocks on the\n"
+    "calculate_standard_deviations",
+    &Component::calculateStandardDeviations,
+    "Calculate the standard deviations from the covariances\n\n"
+    "The standard deviations can only be calculated from covariance blocks on the\n"
     "diagonal of the covariance matrix. When this function is called on an\n"
     "off diagonal block, the function has no effect."
   )
@@ -131,10 +131,10 @@ void wrapCovarianceBlock( python::module& module ) {
     "calculate_correlations",
     python::overload_cast<>( &Component::calculateCorrelations ),
     "Calculate the correlations (for covariance blocks on the diagonal)\n\n"
-    "The correlations can only be calculated without input of the uncertainties\n"
-    "for covariance blocks on the diagonal of the covariance matrix. When this\n"
-    "method is called on an off diagonal block, the method has no effect.\n"
-    "Uncertainties will be calculated and stored as well."
+    "The correlations can only be calculated without input of the standard\n"
+    "deviations for covariance blocks on the diagonal of the covariance matrix.\n"
+    "When this method is called on an off diagonal block, the method has no effect.\n"
+    "Standard deviations will be calculated and stored as well."
   )
   .def(
 
@@ -142,15 +142,15 @@ void wrapCovarianceBlock( python::module& module ) {
     python::overload_cast<
         const std::vector< double >&,
         const std::vector< double >& >( &Component::calculateCorrelations ),
-    python::arg( "row" ), python::arg( "column" ),
-    "Calculate the uncertainties (for off diagonal covariance blocks)\n\n"
-    "The correlations can only be calculated with input of the uncertainties\n"
+    python::arg( "row_deviations" ), python::arg( "column_deviations" ),
+    "Calculate the correlations (for off diagonal covariance blocks)\n\n"
+    "The correlations can only be calculated with input of the standard deviations\n"
     "for covariance blocks that are off diagonal in the covariance matrix.\n"
-    "Uncertainties will not be stored.\n\n"
+    "Standard deviations will not be stored.\n\n"
     "Arguments:\n"
-    "    self      the covariance block\n"
-    "    row       the uncertainties to be applied to each row\n"
-    "    column    the uncertainties to be applied to each column"
+    "    self                 the covariance block\n"
+    "    row_deviations       the standard deviations to be applied to each row\n"
+    "    column_deviations    the standard deviations to be applied to each column"
   )
   .def(
 

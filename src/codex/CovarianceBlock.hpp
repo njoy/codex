@@ -24,8 +24,8 @@ namespace codex {
     /* fields - covariance matrix */
     std::optional< Matrix< double > > covariances_;
 
-    /* fields - uncertainties and correlations */
-    std::optional< std::vector< double > > uncertainties_;
+    /* fields - standard deviations and correlations */
+    std::optional< std::vector< double > > sigmas_;
     std::optional< Matrix< double > > correlations_;
 
     /* fields - eigenvalues */
@@ -33,6 +33,7 @@ namespace codex {
 
     /* auxiliary function */
     #include "codex/CovarianceBlock/src/verifyMatrix.hpp"
+    #include "codex/CovarianceBlock/src/verifyStandardDeviations.hpp"
 
   public:
 
@@ -86,11 +87,11 @@ namespace codex {
     }
 
     /**
-     *  @brief Return the uncertainties
+     *  @brief Return the standard deviations
      */
-    const std::optional< std::vector< double > >& uncertainties() const {
+    const std::optional< std::vector< double > >& standardDeviations() const {
 
-      return this->uncertainties_;
+      return this->sigmas_;
     }
 
     /**
@@ -109,7 +110,7 @@ namespace codex {
       return this->eigenvalues_;
     }
 
-    #include "codex/CovarianceBlock/src/calculateUncertainties.hpp"
+    #include "codex/CovarianceBlock/src/calculateStandardDeviations.hpp"
     #include "codex/CovarianceBlock/src/calculateCorrelations.hpp"
     #include "codex/CovarianceBlock/src/calculateEigenvalues.hpp"
   };

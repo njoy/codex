@@ -1,22 +1,22 @@
 /**
  *  @brief Calculate the correlations (for covariance blocks on the diagonal)
  *
- *  The correlations can only be calculated without input of the uncertainties
- *  for covariance blocks on the diagonal of the covariance matrix. When this
- *  method is called on an off diagonal block, the method has no effect.
- *  Uncertainties will be calculated and stored as well.
+ *  The correlations can only be calculated without input of the standard
+ *  deviations for covariance blocks on the diagonal of the covariance matrix.
+ *  When this method is called on an off diagonal block, the method has no
+ *  effect. Standard deviations will be calculated and stored as well.
  */
 void calculateCorrelations() {
 
   if ( this->isDiagonalBlock() ) {
 
-    this->calculateUncertainties();
+    this->calculateStandardDeviations();
 
     DiagonalMatrix< double > temporary( this->rowMetadata().numberGroups() );
     temporary.setIdentity();
     for ( unsigned int i = 0; i < this->rowMetadata().numberGroups(); ++i ) {
 
-      temporary.diagonal()[i] /= this->uncertainties().value()[i];
+      temporary.diagonal()[i] /= this->standardDeviations().value()[i];
     }
 
     this->correlations_ = temporary * this->covariances().value() * temporary;
@@ -26,28 +26,33 @@ void calculateCorrelations() {
 /**
  *  @brief Calculate the correlations (for off diagonal covariance blocks)
  *
- *  The correlations can only be calculated with input of the uncertainties
+ *  The correlations can only be calculated with input of the standard deviations
  *  for covariance blocks that are off diagonal in the covariance matrix.
- *  Uncertainties will not be stored.
+ *  Standard deviations will not be stored.
  *
- *  @param[in] row      the uncertainties to be applied to each row
- *  @param[in] column   the uncertainties to be applied to each column
+ *  @param[in] rowDeviations      the standard deviations to be applied to each row
+ *  @param[in] columnDeviations   the standard deviations to be applied to each column
  */
-void calculateCorrelations( const std::vector< double >& row,
-                            const std::vector< double >& column ) {
+void calculateCorrelations( const std::vector< double >& rowDeviations,
+                            const std::vector< double >& columnDeviations ) {
+
+  verifyStandardDeviations( this->rowMetadata().numberGroups(),
+                            this->columnMetadata().numberGroups(),
+                            rowDeviations.size(),
+                            columnDeviations.size() );
 
   DiagonalMatrix< double > left( this->rowMetadata().numberGroups() );
   left.setIdentity();
   for ( unsigned int i = 0; i < this->rowMetadata().numberGroups(); ++i ) {
 
-    left.diagonal()[i] /= row[i];
+    left.diagonal()[i] /= rowDeviations[i];
   }
 
   DiagonalMatrix< double > right( this->columnMetadata().numberGroups() );
   right.setIdentity();
   for ( unsigned int i = 0; i < this->columnMetadata().numberGroups(); ++i ) {
 
-    right.diagonal()[i] /= column[i];
+    right.diagonal()[i] /= columnDeviations[i];
   }
 
   this->correlations_ = left * this->covariances().value() * right;

@@ -10,13 +10,12 @@
 namespace python = pybind11;
 
 /**
- *  @brief Wrap a BasicBidirectionalAnyView templated on the Element type
+ *  @brief Wrap matrix test function for a specific template type
  *
  *  @param[in,out] module   the python module
- *  @param[in,out] name     the unique type name
  */
 template < typename T >
-void wrapMatrixFunctionsFor( python::module& module ) {
+void wrapFunctionsForMatrix( python::module& module ) {
 
   module
   .def( "is_square",
@@ -31,5 +30,5 @@ void wrapMatrixFunctionsFor( python::module& module ) {
 
 void wrapMatrixFunctions( python::module& module ) {
 
-  wrapMatrixFunctionsFor< double >( module );
+  wrapFunctionsForMatrix< double >( module );
 }

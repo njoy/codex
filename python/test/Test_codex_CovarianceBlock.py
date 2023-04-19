@@ -15,9 +15,9 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
         # the data is given explicitly - for a diagonal block
         chunk = CovarianceBlock( nuclide = 'U235', reaction = 'elastic',
                                  energies = [ 1e-5, 1., 1e+6, 2e+7 ],
-                                 matrix = numpy.array( [ [ 1., 2., 3. ],
-                                                         [ 2., 4., 6. ],
-                                                         [ 3., 6., 9. ] ] ) )
+                                 covariances = numpy.array( [ [ 1., 2., 3. ],
+                                                              [ 2., 4., 6. ],
+                                                              [ 3., 6., 9. ] ] ) )
 
         # verify content
         self.assertEqual( 'U235', chunk.row_metadata.nuclide )
@@ -41,7 +41,7 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
         self.assertEqual( False, chunk.is_off_diagonal_block )
         self.assertEqual( True, chunk.is_diagonal_block )
 
-        self.assertEqual( None, chunk.uncertainties )
+        self.assertEqual( None, chunk.standard_deviations )
         self.assertEqual( None, chunk.correlations )
         self.assertEqual( None, chunk.eigenvalues )
 
@@ -55,10 +55,10 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
         self.assertAlmostEqual( 6., chunk.covariances[2,1] )
         self.assertAlmostEqual( 9., chunk.covariances[2,2] )
 
-        chunk.calculate_uncertainties()
-        self.assertAlmostEqual( 1., chunk.uncertainties[0] )
-        self.assertAlmostEqual( 2., chunk.uncertainties[1] )
-        self.assertAlmostEqual( 3., chunk.uncertainties[2] )
+        chunk.calculate_standard_deviations()
+        self.assertAlmostEqual( 1., chunk.standard_deviations[0] )
+        self.assertAlmostEqual( 2., chunk.standard_deviations[1] )
+        self.assertAlmostEqual( 3., chunk.standard_deviations[2] )
 
         chunk.calculate_correlations()
         self.assertAlmostEqual( 1., chunk.correlations[0,0] )
@@ -83,9 +83,9 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
                                  row_energies = [ 1e-5, 1., 1e+6, 2e+7 ],
                                  column_nuclide = 'U238', column_reaction = 'fission',
                                  column_energies = [ 1e-5, 2., 2e+7 ],
-                                 matrix = numpy.array( [ [ 1., 2. ],
-                                                         [ 2., 4. ],
-                                                         [ 3., 6. ] ] ) )
+                                 covariances = numpy.array( [ [ 1., 2. ],
+                                                              [ 2., 4. ],
+                                                              [ 3., 6. ] ] ) )
 
         # verify content
         self.assertEqual( 'U235', chunk.row_metadata.nuclide )
@@ -108,7 +108,7 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
         self.assertEqual( True, chunk.is_off_diagonal_block )
         self.assertEqual( False, chunk.is_diagonal_block )
 
-        self.assertEqual( None, chunk.uncertainties )
+        self.assertEqual( None, chunk.standard_deviations )
         self.assertEqual( None, chunk.correlations )
         self.assertEqual( None, chunk.eigenvalues )
 
@@ -119,8 +119,8 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
         self.assertAlmostEqual( 3., chunk.covariances[2,0] )
         self.assertAlmostEqual( 6., chunk.covariances[2,1] )
 
-        chunk.calculate_uncertainties()
-        self.assertEqual( None, chunk.uncertainties )
+        chunk.calculate_standard_deviations()
+        self.assertEqual( None, chunk.standard_deviations )
 
         chunk.calculate_correlations( [ 1., 2., 3. ], [ 1., 2. ] )
         self.assertAlmostEqual( 1., chunk.correlations[0,0] )
