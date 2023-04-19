@@ -30,24 +30,24 @@ void calculateCorrelations() {
  *  for covariance blocks that are off diagonal in the covariance matrix.
  *  Standard deviations will not be stored.
  *
- *  @param[in] row      the standard deviations to be applied to each row
- *  @param[in] column   the standard deviations to be applied to each column
+ *  @param[in] rowDeviations      the standard deviations to be applied to each row
+ *  @param[in] columnDeviations   the standard deviations to be applied to each column
  */
-void calculateCorrelations( const std::vector< double >& row,
-                            const std::vector< double >& column ) {
+void calculateCorrelations( const std::vector< double >& rowDeviations,
+                            const std::vector< double >& columnDeviations ) {
 
   DiagonalMatrix< double > left( this->rowMetadata().numberGroups() );
   left.setIdentity();
   for ( unsigned int i = 0; i < this->rowMetadata().numberGroups(); ++i ) {
 
-    left.diagonal()[i] /= row[i];
+    left.diagonal()[i] /= rowDeviations[i];
   }
 
   DiagonalMatrix< double > right( this->columnMetadata().numberGroups() );
   right.setIdentity();
   for ( unsigned int i = 0; i < this->columnMetadata().numberGroups(); ++i ) {
 
-    right.diagonal()[i] /= column[i];
+    right.diagonal()[i] /= columnDeviations[i];
   }
 
   this->correlations_ = left * this->covariances().value() * right;

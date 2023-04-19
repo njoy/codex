@@ -142,15 +142,15 @@ void wrapCovarianceBlock( python::module& module ) {
     python::overload_cast<
         const std::vector< double >&,
         const std::vector< double >& >( &Component::calculateCorrelations ),
-    python::arg( "row" ), python::arg( "column" ),
+    python::arg( "row_deviations" ), python::arg( "column_deviations" ),
     "Calculate the correlations (for off diagonal covariance blocks)\n\n"
     "The correlations can only be calculated with input of the standard deviations\n"
     "for covariance blocks that are off diagonal in the covariance matrix.\n"
     "Standard deviations will not be stored.\n\n"
     "Arguments:\n"
-    "    self      the covariance block\n"
-    "    row       the standard deviations to be applied to each row\n"
-    "    column    the standard deviations to be applied to each column"
+    "    self                 the covariance block\n"
+    "    row_deviations       the standard deviations to be applied to each row\n"
+    "    column_deviations    the standard deviations to be applied to each column"
   )
   .def(
 
