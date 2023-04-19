@@ -54,7 +54,7 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( true == chunk.isDiagonalBlock() );
 
       CHECK( std::nullopt != chunk.covariances() );
-      CHECK( std::nullopt == chunk.uncertainties() );
+      CHECK( std::nullopt == chunk.standardDeviations() );
       CHECK( std::nullopt == chunk.correlations() );
       CHECK( std::nullopt == chunk.eigenvalues() );
 
@@ -71,16 +71,16 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( 9. == chunk.covariances().value()(2,2) );
     } // THEN
 
-    chunk.calculateUncertainties();
+    chunk.calculateStandardDeviations();
 
-    THEN( "Uncertainties can be calculated" ) {
+    THEN( "Standard deviations can be calculated" ) {
 
-      CHECK( std::nullopt != chunk.uncertainties() );
+      CHECK( std::nullopt != chunk.standardDeviations() );
 
-      CHECK( 3 == chunk.uncertainties().value().size() );
-      CHECK( 1. == Approx( chunk.uncertainties().value()[0] ) );
-      CHECK( 2. == Approx( chunk.uncertainties().value()[1] ) );
-      CHECK( 3. == Approx( chunk.uncertainties().value()[2] ) );
+      CHECK( 3 == chunk.standardDeviations().value().size() );
+      CHECK( 1. == Approx( chunk.standardDeviations().value()[0] ) );
+      CHECK( 2. == Approx( chunk.standardDeviations().value()[1] ) );
+      CHECK( 3. == Approx( chunk.standardDeviations().value()[2] ) );
     } // THEN
 
     chunk.calculateCorrelations();
@@ -163,7 +163,7 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( false == chunk.isDiagonalBlock() );
 
       CHECK( std::nullopt != chunk.covariances() );
-      CHECK( std::nullopt == chunk.uncertainties() );
+      CHECK( std::nullopt == chunk.standardDeviations() );
       CHECK( std::nullopt == chunk.correlations() );
 
       CHECK( 3 == chunk.covariances().value().rows() );
@@ -176,11 +176,11 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( 6. == chunk.covariances().value()(2,1) );
     } // THEN
 
-    chunk.calculateUncertainties();
+    chunk.calculateStandardDeviations();
 
-    THEN( "Uncertainties cannot be calculated" ) {
+    THEN( "Standard deviations cannot be calculated" ) {
 
-      CHECK( std::nullopt == chunk.uncertainties() );
+      CHECK( std::nullopt == chunk.standardDeviations() );
     } // THEN
 
     std::vector< double > row = { 1., 2., 3. };
