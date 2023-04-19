@@ -49,6 +49,11 @@ namespace codex {
      *  @brief Return the energy boundaries
      */
     const std::vector< double >& energies() const { return this->energies_; }
+
+    /**
+     *  @brief Return the number of energy groups
+     */
+    std::size_t numberGroups() const { return this->energies().size() - 1; }
   };
 
 } // codex namespace

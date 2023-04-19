@@ -27,6 +27,7 @@ SCENARIO( "MetaData" ) {
         CHECK( "elastic" == chunk.reaction() );
 
         CHECK( 4 == chunk.energies().size() );
+        CHECK( 3 == chunk.numberGroups() );
         CHECK( 1e-5 == Approx( chunk.energies()[0] ) );
         CHECK( 1.   == Approx( chunk.energies()[1] ) );
         CHECK( 1e+6 == Approx( chunk.energies()[2] ) );

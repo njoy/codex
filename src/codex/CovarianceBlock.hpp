@@ -13,6 +13,7 @@ namespace codex {
 
   /* type aliases */
   template < typename T > using Matrix = Eigen::Matrix< T, Eigen::Dynamic, Eigen::Dynamic >;
+  template < typename T > using DiagonalMatrix = Eigen::DiagonalMatrix< T, Eigen::Dynamic >;
 
   /**
    *  @class
@@ -20,10 +21,16 @@ namespace codex {
    */
   class CovarianceBlock {
 
-    /* fields */
+    /* fields - meta data */
     MetaData row_;
     std::optional< MetaData > column_;
-    Matrix< double > matrix_;
+
+    /* fields - covariance matrix */
+    std::optional< Matrix< double > > covariances_;
+
+    /* fields - uncertainties and correlations */
+    std::optional< std::vector< double > > uncertainties_;
+    std::optional< Matrix< double > > correlations_;
 
     /* auxiliary function */
     #include "codex/CovarianceBlock/src/verifyMatrix.hpp"
@@ -68,13 +75,35 @@ namespace codex {
      */
     bool isDiagonalBlock() const {
 
-      return !this->isOffDiagonalBlock();
+      return ! this->isOffDiagonalBlock();
     }
 
     /**
      *  @brief Return the covariance matrix
      */
-    const Matrix< double >& matrix() const { return this->matrix_; }
+    const std::optional< Matrix< double > >& covariances() const {
+
+      return this->covariances_;
+    }
+
+    /**
+     *  @brief Return the uncertainties
+     */
+    const std::optional< std::vector< double > >& uncertainties() const {
+
+      return this->uncertainties_;
+    }
+
+    /**
+     *  @brief Return the correlation matrix
+     */
+    const std::optional< Matrix< double > >& correlations() const {
+
+      return this->correlations_;
+    }
+
+    #include "codex/CovarianceBlock/src/calculateUncertainties.hpp"
+    #include "codex/CovarianceBlock/src/calculateCorrelations.hpp"
   };
 
 } // codex namespace

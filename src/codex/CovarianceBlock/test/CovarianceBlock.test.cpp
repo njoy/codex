@@ -10,7 +10,7 @@ using namespace njoy::codex;
 
 SCENARIO( "CovarianceBlock" ) {
 
-  GIVEN( "valid data for a diagonal CovarianceBlock" ) {
+  GIVEN( "valid covariance data for a diagonal CovarianceBlock" ) {
 
     NuclideID nuclide( "U235" );
     ReactionID reaction( "elastic" );
@@ -22,19 +22,20 @@ SCENARIO( "CovarianceBlock" ) {
     matrix(0,2) = 3.;
     matrix(1,0) = 2.;
     matrix(1,1) = 4.;
-    matrix(1,2) = 5.;
+    matrix(1,2) = 6.;
     matrix(2,0) = 3.;
-    matrix(2,1) = 5.;
-    matrix(2,2) = 6.;
+    matrix(2,1) = 6.;
+    matrix(2,2) = 9.;
 
     CovarianceBlock chunk( std::move( nuclide ), std::move( reaction ),
                            std::move( energies ), std::move( matrix ) );
 
-    THEN( "a MetaData can be constructed and members can be tested" ) {
+    THEN( "a CovarianceBlock can be constructed and members can be tested" ) {
 
       CHECK( "U235" == chunk.rowMetadata().nuclide() );
       CHECK( "elastic" == chunk.rowMetadata().reaction() );
       CHECK( 4 == chunk.rowMetadata().energies().size() );
+      CHECK( 3 == chunk.rowMetadata().numberGroups() );
       CHECK( 1e-5 == Approx( chunk.rowMetadata().energies()[0] ) );
       CHECK( 1.   == Approx( chunk.rowMetadata().energies()[1] ) );
       CHECK( 1e+6 == Approx( chunk.rowMetadata().energies()[2] ) );
@@ -43,6 +44,7 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( "U235" == chunk.columnMetadata().nuclide() );
       CHECK( "elastic" == chunk.columnMetadata().reaction() );
       CHECK( 4 == chunk.columnMetadata().energies().size() );
+      CHECK( 3 == chunk.columnMetadata().numberGroups() );
       CHECK( 1e-5 == Approx( chunk.columnMetadata().energies()[0] ) );
       CHECK( 1.   == Approx( chunk.columnMetadata().energies()[1] ) );
       CHECK( 1e+6 == Approx( chunk.columnMetadata().energies()[2] ) );
@@ -51,17 +53,52 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( false == chunk.isOffDiagonalBlock() );
       CHECK( true == chunk.isDiagonalBlock() );
 
-      CHECK( 3 == chunk.matrix().rows() );
-      CHECK( 3 == chunk.matrix().cols() );
-      CHECK( 1. == chunk.matrix()(0,0) );
-      CHECK( 2. == chunk.matrix()(0,1) );
-      CHECK( 3. == chunk.matrix()(0,2) );
-      CHECK( 2. == chunk.matrix()(1,0) );
-      CHECK( 4. == chunk.matrix()(1,1) );
-      CHECK( 5. == chunk.matrix()(1,2) );
-      CHECK( 3. == chunk.matrix()(2,0) );
-      CHECK( 5. == chunk.matrix()(2,1) );
-      CHECK( 6. == chunk.matrix()(2,2) );
+      CHECK( std::nullopt != chunk.covariances() );
+      CHECK( std::nullopt == chunk.uncertainties() );
+      CHECK( std::nullopt == chunk.correlations() );
+
+      CHECK( 3 == chunk.covariances().value().rows() );
+      CHECK( 3 == chunk.covariances().value().cols() );
+      CHECK( 1. == chunk.covariances().value()(0,0) );
+      CHECK( 2. == chunk.covariances().value()(0,1) );
+      CHECK( 3. == chunk.covariances().value()(0,2) );
+      CHECK( 2. == chunk.covariances().value()(1,0) );
+      CHECK( 4. == chunk.covariances().value()(1,1) );
+      CHECK( 6. == chunk.covariances().value()(1,2) );
+      CHECK( 3. == chunk.covariances().value()(2,0) );
+      CHECK( 6. == chunk.covariances().value()(2,1) );
+      CHECK( 9. == chunk.covariances().value()(2,2) );
+    } // THEN
+
+    chunk.calculateUncertainties();
+
+    THEN( "Uncertainties can be calculated" ) {
+
+      CHECK( std::nullopt != chunk.uncertainties() );
+
+      CHECK( 3 == chunk.uncertainties().value().size() );
+      CHECK( 1. == Approx( chunk.uncertainties().value()[0] ) );
+      CHECK( 2. == Approx( chunk.uncertainties().value()[1] ) );
+      CHECK( 3. == Approx( chunk.uncertainties().value()[2] ) );
+    } // THEN
+
+    chunk.calculateCorrelations();
+
+    THEN( "Correlations can be calculated" ) {
+
+      CHECK( std::nullopt != chunk.correlations() );
+
+      CHECK( 3 == chunk.correlations().value().rows() );
+      CHECK( 3 == chunk.correlations().value().cols() );
+      CHECK( 1. == chunk.correlations().value()(0,0) );
+      CHECK( 1. == chunk.correlations().value()(0,1) );
+      CHECK( 1. == chunk.correlations().value()(0,2) );
+      CHECK( 1. == chunk.correlations().value()(1,0) );
+      CHECK( 1. == chunk.correlations().value()(1,1) );
+      CHECK( 1. == chunk.correlations().value()(1,2) );
+      CHECK( 1. == chunk.correlations().value()(2,0) );
+      CHECK( 1. == chunk.correlations().value()(2,1) );
+      CHECK( 1. == chunk.correlations().value()(2,2) );
     } // THEN
   } // GIVEN
 
@@ -77,9 +114,9 @@ SCENARIO( "CovarianceBlock" ) {
     Matrix< double > matrix( 3, 2 );
     matrix(0,0) = 1.;
     matrix(0,1) = 2.;
-    matrix(1,0) = 3.;
+    matrix(1,0) = 2.;
     matrix(1,1) = 4.;
-    matrix(2,0) = 5.;
+    matrix(2,0) = 3.;
     matrix(2,1) = 6.;
 
     CovarianceBlock chunk( std::move( rowNuclide ),
@@ -90,11 +127,12 @@ SCENARIO( "CovarianceBlock" ) {
                            std::move( columnEnergies ),
                            std::move( matrix ) );
 
-    THEN( "a MetaData can be constructed and members can be tested" ) {
+    THEN( "a CovarianceBlock can be constructed and members can be tested" ) {
 
       CHECK( "U235" == chunk.rowMetadata().nuclide() );
       CHECK( "elastic" == chunk.rowMetadata().reaction() );
       CHECK( 4 == chunk.rowMetadata().energies().size() );
+      CHECK( 3 == chunk.rowMetadata().numberGroups() );
       CHECK( 1e-5 == Approx( chunk.rowMetadata().energies()[0] ) );
       CHECK( 1.   == Approx( chunk.rowMetadata().energies()[1] ) );
       CHECK( 1e+6 == Approx( chunk.rowMetadata().energies()[2] ) );
@@ -103,6 +141,7 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( "U238" == chunk.columnMetadata().nuclide() );
       CHECK( "fission" == chunk.columnMetadata().reaction() );
       CHECK( 3 == chunk.columnMetadata().energies().size() );
+      CHECK( 2 == chunk.columnMetadata().numberGroups() );
       CHECK( 1e-5 == Approx( chunk.columnMetadata().energies()[0] ) );
       CHECK( 2.   == Approx( chunk.columnMetadata().energies()[1] ) );
       CHECK( 2e+7 == Approx( chunk.columnMetadata().energies()[2] ) );
@@ -110,14 +149,43 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( true == chunk.isOffDiagonalBlock() );
       CHECK( false == chunk.isDiagonalBlock() );
 
-      CHECK( 3 == chunk.matrix().rows() );
-      CHECK( 2 == chunk.matrix().cols() );
-      CHECK( 1. == chunk.matrix()(0,0) );
-      CHECK( 2. == chunk.matrix()(0,1) );
-      CHECK( 3. == chunk.matrix()(1,0) );
-      CHECK( 4. == chunk.matrix()(1,1) );
-      CHECK( 5. == chunk.matrix()(2,0) );
-      CHECK( 6. == chunk.matrix()(2,1) );
+      CHECK( std::nullopt != chunk.covariances() );
+      CHECK( std::nullopt == chunk.uncertainties() );
+      CHECK( std::nullopt == chunk.correlations() );
+
+      CHECK( 3 == chunk.covariances().value().rows() );
+      CHECK( 2 == chunk.covariances().value().cols() );
+      CHECK( 1. == chunk.covariances().value()(0,0) );
+      CHECK( 2. == chunk.covariances().value()(0,1) );
+      CHECK( 2. == chunk.covariances().value()(1,0) );
+      CHECK( 4. == chunk.covariances().value()(1,1) );
+      CHECK( 3. == chunk.covariances().value()(2,0) );
+      CHECK( 6. == chunk.covariances().value()(2,1) );
+    } // THEN
+
+    chunk.calculateUncertainties();
+
+    THEN( "Uncertainties cannot be calculated" ) {
+
+      CHECK( std::nullopt == chunk.uncertainties() );
+    } // THEN
+
+    std::vector< double > row = { 1., 2., 3. };
+    std::vector< double > column = { 1., 2. };
+    chunk.calculateCorrelations( row, column );
+
+    THEN( "Correlations can be calculated" ) {
+
+      CHECK( std::nullopt != chunk.correlations() );
+
+      CHECK( 3 == chunk.correlations().value().rows() );
+      CHECK( 2 == chunk.correlations().value().cols() );
+      CHECK( 1. == chunk.correlations().value()(0,0) );
+      CHECK( 1. == chunk.correlations().value()(0,1) );
+      CHECK( 1. == chunk.correlations().value()(1,0) );
+      CHECK( 1. == chunk.correlations().value()(1,1) );
+      CHECK( 1. == chunk.correlations().value()(2,0) );
+      CHECK( 1. == chunk.correlations().value()(2,1) );
     } // THEN
   } // GIVEN
 
