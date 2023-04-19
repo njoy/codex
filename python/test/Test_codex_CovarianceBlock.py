@@ -15,9 +15,9 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
         # the data is given explicitly - for a diagonal block
         chunk = CovarianceBlock( nuclide = 'U235', reaction = 'elastic',
                                  energies = [ 1e-5, 1., 1e+6, 2e+7 ],
-                                 matrix = numpy.array( [ [ 1., 2., 3. ],
-                                                         [ 2., 4., 6. ],
-                                                         [ 3., 6., 9. ] ] ) )
+                                 covariances = numpy.array( [ [ 1., 2., 3. ],
+                                                              [ 2., 4., 6. ],
+                                                              [ 3., 6., 9. ] ] ) )
 
         # verify content
         self.assertEqual( 'U235', chunk.row_metadata.nuclide )
@@ -83,9 +83,9 @@ class Test_codex_CovarianceBlock( unittest.TestCase ) :
                                  row_energies = [ 1e-5, 1., 1e+6, 2e+7 ],
                                  column_nuclide = 'U238', column_reaction = 'fission',
                                  column_energies = [ 1e-5, 2., 2e+7 ],
-                                 matrix = numpy.array( [ [ 1., 2. ],
-                                                         [ 2., 4. ],
-                                                         [ 3., 6. ] ] ) )
+                                 covariances = numpy.array( [ [ 1., 2. ],
+                                                              [ 2., 4. ],
+                                                              [ 3., 6. ] ] ) )
 
         # verify content
         self.assertEqual( 'U235', chunk.row_metadata.nuclide )

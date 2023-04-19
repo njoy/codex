@@ -33,14 +33,14 @@ void wrapCovarianceBlock( python::module& module ) {
 
     python::init< NuclideID, ReactionID, std::vector< double >, Matrix >(),
     python::arg( "nuclide" ), python::arg( "reaction" ),
-    python::arg( "energies" ), python::arg( "matrix" ),
+    python::arg( "energies" ), python::arg( "covariances" ),
     "Initialise a diagonal covariance block\n\n"
     "Arguments:\n"
-    "    self       the covariance block\n"
-    "    nuclide    the nuclide identifier\n"
-    "    reaction   the reaction identifier\n"
-    "    energies   the energy boundaries\n"
-    "    matrix     the covariance matrix"
+    "    self          the covariance block\n"
+    "    nuclide       the nuclide identifier\n"
+    "    reaction      the reaction identifier\n"
+    "    energies      the energy boundaries\n"
+    "    covariances   the covariance matrix"
   )
   .def(
 
@@ -50,7 +50,7 @@ void wrapCovarianceBlock( python::module& module ) {
     python::arg( "row_nuclide" ), python::arg( "row_reaction" ),
     python::arg( "row_energies" ), python::arg( "column_nuclide" ),
     python::arg( "column_reaction" ), python::arg( "column_energies" ),
-    python::arg( "matrix" ),
+    python::arg( "covariances" ),
     "Initialise an off-diagonal covariance block\n\n"
     "Arguments:\n"
     "    self              the covariance block\n"
@@ -60,7 +60,7 @@ void wrapCovarianceBlock( python::module& module ) {
     "    column_nuclide    the row nuclide identifier\n"
     "    column_reaction   the row reaction identifier\n"
     "    column_energies   the row energy boundaries\n"
-    "    matrix            the covariance matrix"
+    "    covariances       the covariance matrix"
   )
   .def_property_readonly(
 
