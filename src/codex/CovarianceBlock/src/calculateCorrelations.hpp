@@ -36,6 +36,11 @@ void calculateCorrelations() {
 void calculateCorrelations( const std::vector< double >& rowDeviations,
                             const std::vector< double >& columnDeviations ) {
 
+  verifyStandardDeviations( this->rowMetadata().numberGroups(),
+                            this->columnMetadata().numberGroups(),
+                            rowDeviations.size(),
+                            columnDeviations.size() );
+
   DiagonalMatrix< double > left( this->rowMetadata().numberGroups() );
   left.setIdentity();
   for ( unsigned int i = 0; i < this->rowMetadata().numberGroups(); ++i ) {

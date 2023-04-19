@@ -33,6 +33,7 @@ namespace codex {
 
     /* auxiliary function */
     #include "codex/CovarianceBlock/src/verifyMatrix.hpp"
+    #include "codex/CovarianceBlock/src/verifyStandardDeviations.hpp"
 
   public:
 
