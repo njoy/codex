@@ -110,10 +110,6 @@ if( codex.python )
 
 endif()
 
-#######################################################################
-# Top-level Only
-#######################################################################
-
 if( CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR )
   if( codex.tests )
     include( cmake/unit_testing.cmake )
