@@ -36,9 +36,7 @@ FetchContent_Declare( tools
 #######################################################################
 
 FetchContent_MakeAvailable(
-    Catch2
     eigen
-    pybind11
     spdlog
     tools
     )
