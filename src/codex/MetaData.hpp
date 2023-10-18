@@ -6,7 +6,7 @@
 #include <vector>
 
 // other includes
-#include "Log.hpp"
+#include "tools/Log.hpp"
 
 namespace njoy {
 namespace codex {
