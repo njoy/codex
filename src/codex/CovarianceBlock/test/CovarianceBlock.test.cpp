@@ -1,6 +1,10 @@
-#define CATCH_CONFIG_MAIN
+// include Catch2
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+using Catch::Matchers::WithinRel;
+using Catch::Matchers::WithinAbs;
 
-#include "catch.hpp"
+// what we are testing
 #include "codex/CovarianceBlock.hpp"
 
 // other includes
@@ -36,19 +40,19 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( "elastic" == chunk.rowMetadata().reaction() );
       CHECK( 4 == chunk.rowMetadata().energies().size() );
       CHECK( 3 == chunk.rowMetadata().numberGroups() );
-      CHECK( 1e-5 == Approx( chunk.rowMetadata().energies()[0] ) );
-      CHECK( 1.   == Approx( chunk.rowMetadata().energies()[1] ) );
-      CHECK( 1e+6 == Approx( chunk.rowMetadata().energies()[2] ) );
-      CHECK( 2e+7 == Approx( chunk.rowMetadata().energies()[3] ) );
+      CHECK_THAT( 1e-5, WithinRel( chunk.rowMetadata().energies()[0] ) );
+      CHECK_THAT( 1.  , WithinRel( chunk.rowMetadata().energies()[1] ) );
+      CHECK_THAT( 1e+6, WithinRel( chunk.rowMetadata().energies()[2] ) );
+      CHECK_THAT( 2e+7, WithinRel( chunk.rowMetadata().energies()[3] ) );
 
       CHECK( "U235" == chunk.columnMetadata().nuclide() );
       CHECK( "elastic" == chunk.columnMetadata().reaction() );
       CHECK( 4 == chunk.columnMetadata().energies().size() );
       CHECK( 3 == chunk.columnMetadata().numberGroups() );
-      CHECK( 1e-5 == Approx( chunk.columnMetadata().energies()[0] ) );
-      CHECK( 1.   == Approx( chunk.columnMetadata().energies()[1] ) );
-      CHECK( 1e+6 == Approx( chunk.columnMetadata().energies()[2] ) );
-      CHECK( 2e+7 == Approx( chunk.columnMetadata().energies()[3] ) );
+      CHECK_THAT( 1e-5, WithinRel( chunk.columnMetadata().energies()[0] ) );
+      CHECK_THAT( 1.  , WithinRel( chunk.columnMetadata().energies()[1] ) );
+      CHECK_THAT( 1e+6, WithinRel( chunk.columnMetadata().energies()[2] ) );
+      CHECK_THAT( 2e+7, WithinRel( chunk.columnMetadata().energies()[3] ) );
 
       CHECK( false == chunk.isOffDiagonalBlock() );
       CHECK( true == chunk.isDiagonalBlock() );
@@ -78,9 +82,9 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( std::nullopt != chunk.standardDeviations() );
 
       CHECK( 3 == chunk.standardDeviations().value().size() );
-      CHECK( 1. == Approx( chunk.standardDeviations().value()[0] ) );
-      CHECK( 2. == Approx( chunk.standardDeviations().value()[1] ) );
-      CHECK( 3. == Approx( chunk.standardDeviations().value()[2] ) );
+      CHECK_THAT( 1., WithinRel( chunk.standardDeviations().value()[0] ) );
+      CHECK_THAT( 2., WithinRel( chunk.standardDeviations().value()[1] ) );
+      CHECK_THAT( 3., WithinRel( chunk.standardDeviations().value()[2] ) );
     } // THEN
 
     chunk.calculateCorrelations();
@@ -109,9 +113,9 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( std::nullopt != chunk.eigenvalues() );
 
       CHECK( 3 == chunk.eigenvalues().value().size() );
-      CHECK( 0. == Approx( chunk.eigenvalues().value()[0] ) );
-      CHECK( 0. == Approx( chunk.eigenvalues().value()[1] ) );
-      CHECK( 14. == Approx( chunk.eigenvalues().value()[2] ) );
+      CHECK_THAT( 0., WithinAbs( chunk.eigenvalues().value()[0], 1e-12 ) );
+      CHECK_THAT( 0., WithinAbs( chunk.eigenvalues().value()[1], 1e-12 ) );
+      CHECK_THAT( 14., WithinRel( chunk.eigenvalues().value()[2] ) );
     } // THEN
   } // GIVEN
 
@@ -146,18 +150,18 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK( "elastic" == chunk.rowMetadata().reaction() );
       CHECK( 4 == chunk.rowMetadata().energies().size() );
       CHECK( 3 == chunk.rowMetadata().numberGroups() );
-      CHECK( 1e-5 == Approx( chunk.rowMetadata().energies()[0] ) );
-      CHECK( 1.   == Approx( chunk.rowMetadata().energies()[1] ) );
-      CHECK( 1e+6 == Approx( chunk.rowMetadata().energies()[2] ) );
-      CHECK( 2e+7 == Approx( chunk.rowMetadata().energies()[3] ) );
+      CHECK_THAT( 1e-5, WithinRel( chunk.rowMetadata().energies()[0] ) );
+      CHECK_THAT( 1.  , WithinRel( chunk.rowMetadata().energies()[1] ) );
+      CHECK_THAT( 1e+6, WithinRel( chunk.rowMetadata().energies()[2] ) );
+      CHECK_THAT( 2e+7, WithinRel( chunk.rowMetadata().energies()[3] ) );
 
       CHECK( "U238" == chunk.columnMetadata().nuclide() );
       CHECK( "fission" == chunk.columnMetadata().reaction() );
       CHECK( 3 == chunk.columnMetadata().energies().size() );
       CHECK( 2 == chunk.columnMetadata().numberGroups() );
-      CHECK( 1e-5 == Approx( chunk.columnMetadata().energies()[0] ) );
-      CHECK( 2.   == Approx( chunk.columnMetadata().energies()[1] ) );
-      CHECK( 2e+7 == Approx( chunk.columnMetadata().energies()[2] ) );
+      CHECK_THAT( 1e-5, WithinRel( chunk.columnMetadata().energies()[0] ) );
+      CHECK_THAT( 2.  , WithinRel( chunk.columnMetadata().energies()[1] ) );
+      CHECK_THAT( 2e+7, WithinRel( chunk.columnMetadata().energies()[2] ) );
 
       CHECK( true == chunk.isOffDiagonalBlock() );
       CHECK( false == chunk.isDiagonalBlock() );

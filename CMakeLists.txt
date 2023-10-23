@@ -1,8 +1,22 @@
 ########################################################################
 # Preamble
 ########################################################################
+
 cmake_minimum_required( VERSION 3.14 )
-project( codex LANGUAGES CXX )
+
+set( subproject OFF )
+if( DEFINED PROJECT_NAME )
+  set( subproject ON )
+endif()
+
+project( codex
+  VERSION 0.1.0
+  LANGUAGES CXX
+)
+
+include( CTest )
+include( CMakeDependentOption )
+include( GNUInstallDirs )
 
 ########################################################################
 # Project-wide setup
@@ -11,18 +25,16 @@ project( codex LANGUAGES CXX )
 set( CMAKE_CXX_STANDARD 17 )
 set( CMAKE_CXX_STANDARD_REQUIRED YES )
 
-option( codex.tests "Build the codex unit tests" OFF )
-option( codex.python "Build codex python bindings" ON )
-option( strict_compile
-    "Treat all warnings as errors." ON
-    )
-
-# Compile flags
-set( common_flags "-Wall" "-Wextra" "-Wpedantic" )
-set( strict_flags "-Werror" )
-set( release_flags "-O3" )
-set( debug_flags "-O0" "-g" )
-
+cmake_dependent_option(
+  codex.tests
+  "Build the codex unit tests and integrate with ctest" ON
+  "BUILD_TESTING AND NOT ${subproject}" OFF
+)
+cmake_dependent_option(
+  codex.python
+  "Build codex python bindings" ON
+  "NOT ${subproject}" OFF
+)
 
 ########################################################################
 # Dependencies
@@ -55,22 +67,26 @@ endif()
 # codex : library
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-include_directories( src/ )
-
 add_library( codex INTERFACE )
-target_include_directories( codex INTERFACE src/ )
+add_library( njoy::codex ALIAS codex )
+target_include_directories( codex
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/src>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
 target_link_libraries( codex
-    INTERFACE Log
-    INTERFACE catch-adapter
-    INTERFACE ENDFtk
-    INTERFACE eigen
-    )
+  INTERFACE
+    njoy::tools
+    eigen
+)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # codex : python bindings
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 if( codex.python )
+
+  FetchContent_MakeAvailable( pybind11 )
 
   pybind11_add_module( codex.python
       python/src/codex.python.cpp
@@ -80,22 +96,22 @@ if( codex.python )
       )
 
   target_link_libraries( codex.python PRIVATE codex )
-  target_include_directories( codex.python PRIVATE python/src )
+  target_include_directories( codex.python PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/python/src )
   target_compile_options( codex.python PRIVATE "-fvisibility=hidden" )
   set_target_properties( codex.python PROPERTIES OUTPUT_NAME codex )
   set_target_properties( codex.python PROPERTIES COMPILE_DEFINITIONS "PYBIND11" )
-  set_target_properties( codex.python PROPERTIES POSITION_INDEPENDENT_CODE ON)
+  set_target_properties( codex.python PROPERTIES POSITION_INDEPENDENT_CODE ON )
+
+  message( STATUS "Building codex's python API" )
+
+  list( APPEND CODEX_PYTHONPATH ${CMAKE_CURRENT_BINARY_DIR} )
+
+  include( cmake/unit_testing_python.cmake )
 
 endif()
 
-#######################################################################
-# Top-level Only
-#######################################################################
-
 if( CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR )
-
-    if( codex.tests )
-        include( cmake/unit_testing.cmake )
-    endif()
-
+  if( codex.tests )
+    include( cmake/unit_testing.cmake )
+  endif()
 endif()
