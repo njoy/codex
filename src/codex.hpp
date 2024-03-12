@@ -1,6 +1,9 @@
 // matrix related functionality
-#include "matrix.hpp"
+#include "codex/matrix.hpp"
+
+// covariance formats
+#include "codex/formats.hpp"
 
 // covariance matrix components
-#include "MetaData.hpp"
-#include "CovarianceBlock.hpp"
+#include "codex/MetaData.hpp"
+#include "codex/CovarianceBlock.hpp"
