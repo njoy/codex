@@ -29,3 +29,5 @@ endfunction()
 add_subdirectory( src/codex/matrix/test )
 add_subdirectory( src/codex/MetaData/test )
 add_subdirectory( src/codex/CovarianceBlock/test )
+
+add_subdirectory( src/codex/formats/endf/test )
