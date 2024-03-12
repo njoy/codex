@@ -77,6 +77,7 @@ target_include_directories( codex
 target_link_libraries( codex
   INTERFACE
     njoy::tools
+    ENDFtk
     eigen
 )
 

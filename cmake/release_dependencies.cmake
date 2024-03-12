@@ -5,9 +5,19 @@ include( FetchContent )
 # Declare project dependencies
 #######################################################################
 
+FetchContent_Declare( catch-adapter
+    GIT_REPOSITORY  https://github.com/njoy/catch-adapter
+    GIT_TAG         fb84b82ebf7a4789aa43cea560680cf745c6ee4f
+    )
+
 FetchContent_Declare( Catch2
     GIT_REPOSITORY  https://github.com/catchorg/Catch2
     GIT_TAG         3f0283de7a9c43200033da996ff9093be3ac84dc # tag: v3.3.2
+    )
+
+FetchContent_Declare( disco
+    GIT_REPOSITORY  https://github.com/njoy/disco
+    GIT_TAG         2606933a854bb0269c4ec37143e1236797e27838
     )
 
 FetchContent_Declare( eigen
@@ -15,9 +25,19 @@ FetchContent_Declare( eigen
     GIT_TAG         d0bfdc1658ca0b4c659fd3702c351d2c2cdc876c # 3.4.1 branch on July 26, 2023
     )
 
+FetchContent_Declare( ENDFtk
+    GIT_REPOSITORY  https://github.com/njoy/ENDFtk.git
+    GIT_TAG         0d031c8e97d15f01d629f56f96eed0588d1ef25d # tag: v1.0.0
+    )
+
 FetchContent_Declare( pybind11
     GIT_REPOSITORY  https://github.com/pybind/pybind11
     GIT_TAG         5b0a6fc2017fcc176545afe3e09c9f9885283242 # tag: v2.10.4
+    )
+
+FetchContent_Declare( range-v3
+    GIT_REPOSITORY  https://github.com/ericniebler/range-v3
+    GIT_TAG         4989f3e9ff2efee1852942bb9328ef121369ba02 # tag: 0.11.0
     )
 
 FetchContent_Declare( spdlog
@@ -36,7 +56,10 @@ FetchContent_Declare( tools
 #######################################################################
 
 FetchContent_MakeAvailable(
+    disco
     eigen
+    ENDFtk
+    range-v3
     spdlog
     tools
     )
