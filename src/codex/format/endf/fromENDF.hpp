@@ -1,5 +1,5 @@
-#ifndef NJOY_CODEX_FROMENDF
-#define NJOY_CODEX_FROMENDF
+#ifndef NJOY_CODEX_FROM_ENDF
+#define NJOY_CODEX_FROM_ENDF
 
 // system includes
 
