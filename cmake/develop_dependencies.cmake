@@ -13,9 +13,10 @@ FetchContent_Declare( tools
 
 FetchContent_Declare( ENDFtk
     GIT_REPOSITORY  https://github.com/njoy/ENDFtk.git
-    GIT_TAG         v1.0.0
+    GIT_TAG         feature/python-extension
     GIT_SHALLOW     TRUE
     )
+set( ENDFtk.python CACHE INTERNAL BOOL ON )
 
 FetchContent_Declare( Catch2
     GIT_REPOSITORY  https://github.com/catchorg/Catch2

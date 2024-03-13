@@ -27,8 +27,9 @@ FetchContent_Declare( eigen
 
 FetchContent_Declare( ENDFtk
     GIT_REPOSITORY  https://github.com/njoy/ENDFtk.git
-    GIT_TAG         0d031c8e97d15f01d629f56f96eed0588d1ef25d # tag: v1.0.0
+    GIT_TAG         0d3a1df1e7ddbf3ba9277badee4d4b538aadba0b
     )
+set( ENDFtk.python CACHE INTERNAL BOOL ON )
 
 FetchContent_Declare( pybind11
     GIT_REPOSITORY  https://github.com/pybind/pybind11
