@@ -94,6 +94,8 @@ if( codex.python )
       python/src/matrix.python.cpp
       python/src/MetaData.python.cpp
       python/src/CovarianceBlock.python.cpp
+      python/src/format.python.cpp
+      python/src/format.endf.python.cpp
       )
 
   target_link_libraries( codex.python PRIVATE codex )
