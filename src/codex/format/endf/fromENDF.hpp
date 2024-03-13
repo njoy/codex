@@ -10,7 +10,7 @@
 
 namespace njoy {
 namespace codex {
-namespace formats {
+namespace format {
 
   CovarianceBlock
   fromENDF( NuclideID nuclide, ReactionID reaction,

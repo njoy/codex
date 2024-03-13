@@ -28,7 +28,7 @@ SCENARIO( "SquareMatrix" ) {
 
     WHEN( "constructing a diagonal CovarianceBlock from a SquareMatrix" ) {
 
-      CovarianceBlock chunk = formats::fromENDF( "Ti48", "n,2n", endf );
+      CovarianceBlock chunk = format::fromENDF( "Ti48", "n,2n", endf );
 
       THEN( "a CovarianceBlock can be created and members can be tested" ) {
 
