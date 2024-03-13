@@ -24,6 +24,11 @@ namespace format {
       "format - covariance formatting tools"
     );
 
-    // wrap ENDF format functionality
+    module
+    .def( "from_endf",
+          python::overload_cast< njoy::codex::NuclideID, njoy::codex::ReactionID,
+                                 const njoy::ENDFtk::section::SquareMatrix& >( &njoy::codex::format::fromENDF ),
+          python::arg( "nuclide" ), python::arg( "reaction" ), python::arg( "endf" ),
+          "Return a CovarianceBlock from an ENDF SquareMatrix component" );
   }
 } // namespace format

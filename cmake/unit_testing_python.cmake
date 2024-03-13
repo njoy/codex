@@ -22,6 +22,8 @@ endfunction()
 
 message( STATUS "Adding codex Python unit testing" )
 
-add_python_test( matrix          Test_codex_matrix.py )
-add_python_test( MetaData        Test_codex_MetaData.py )
-add_python_test( CovarianceBlock Test_codex_CovarianceBlock.py )
+add_python_test( matrix                     Test_codex_matrix.py )
+add_python_test( MetaData                   Test_codex_MetaData.py )
+add_python_test( CovarianceBlock            Test_codex_CovarianceBlock.py )
+
+add_python_test( format.endf.SquareMatrix   format/endf/Test_codex_format_endf_SquareMatrix.py )

@@ -27,5 +27,5 @@ void wrapFormat( python::module& module ) {
   );
 
   // wrap ENDF format functionality
-  format::wrapENDF( module );
+  format::wrapENDF( format );
 }
