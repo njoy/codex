@@ -31,26 +31,28 @@ void wrapCovarianceBlock( python::module& module ) {
   component
   .def(
 
-    python::init< NuclideID, ReactionID, std::vector< double >, Matrix >(),
+    python::init< NuclideID, ReactionID, std::vector< double >, Matrix, bool >(),
     python::arg( "nuclide" ), python::arg( "reaction" ),
     python::arg( "energies" ), python::arg( "covariances" ),
+    python::arg( "relative" ) = true,
     "Initialise a diagonal covariance block\n\n"
     "Arguments:\n"
     "    self          the covariance block\n"
     "    nuclide       the nuclide identifier\n"
     "    reaction      the reaction identifier\n"
     "    energies      the energy boundaries\n"
-    "    covariances   the covariance matrix"
+    "    covariances   the covariance matrix\n"
+    "    relative      the relative covariance flag"
   )
   .def(
 
     python::init< NuclideID, ReactionID, std::vector< double >,
                   NuclideID, ReactionID, std::vector< double >,
-                  Matrix >(),
+                  Matrix, bool >(),
     python::arg( "row_nuclide" ), python::arg( "row_reaction" ),
     python::arg( "row_energies" ), python::arg( "column_nuclide" ),
     python::arg( "column_reaction" ), python::arg( "column_energies" ),
-    python::arg( "covariances" ),
+    python::arg( "covariances" ), python::arg( "relative" ) = true,
     "Initialise an off-diagonal covariance block\n\n"
     "Arguments:\n"
     "    self              the covariance block\n"
@@ -60,7 +62,8 @@ void wrapCovarianceBlock( python::module& module ) {
     "    column_nuclide    the row nuclide identifier\n"
     "    column_reaction   the row reaction identifier\n"
     "    column_energies   the row energy boundaries\n"
-    "    covariances       the covariance matrix"
+    "    covariances       the covariance matrix\n"
+    "    relative      the relative covariance flag"
   )
   .def_property_readonly(
 
@@ -73,6 +76,12 @@ void wrapCovarianceBlock( python::module& module ) {
     "column_metadata",
     &Component::columnMetadata,
     "The column metadata"
+  )
+  .def_property_readonly(
+
+    "is_relative_block",
+    &Component::isRelativeBlock,
+    "Flag to indicate whether or not this covariance block is relative or not"
   )
   .def_property_readonly(
 

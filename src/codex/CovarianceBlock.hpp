@@ -20,6 +20,7 @@ namespace codex {
     /* fields - meta data */
     MetaData row_;
     std::optional< MetaData > column_;
+    bool relative_;
 
     /* fields - covariance matrix */
     std::optional< Matrix< double > > covariances_;
@@ -67,7 +68,7 @@ namespace codex {
      */
     bool isOffDiagonalBlock() const {
 
-      return bool( this->column_ );
+      return this->column_.has_value();
     }
 
     /**
@@ -76,6 +77,14 @@ namespace codex {
     bool isDiagonalBlock() const {
 
       return ! this->isOffDiagonalBlock();
+    }
+
+    /**
+     *  @brief Return whether or not this covariance block is relative or not
+     */
+    bool isRelativeBlock() const {
+
+      return this->relative_;
     }
 
     /**

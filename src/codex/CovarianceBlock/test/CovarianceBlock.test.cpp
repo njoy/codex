@@ -48,6 +48,7 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK_THAT( 1e+6, WithinRel( chunk.columnMetadata().energies()[2] ) );
       CHECK_THAT( 2e+7, WithinRel( chunk.columnMetadata().energies()[3] ) );
 
+      CHECK( true == chunk.isRelativeBlock() );
       CHECK( false == chunk.isOffDiagonalBlock() );
       CHECK( true == chunk.isDiagonalBlock() );
 
@@ -154,6 +155,7 @@ SCENARIO( "CovarianceBlock" ) {
       CHECK_THAT( 2.  , WithinRel( chunk.columnMetadata().energies()[1] ) );
       CHECK_THAT( 2e+7, WithinRel( chunk.columnMetadata().energies()[2] ) );
 
+      CHECK( true == chunk.isRelativeBlock() );
       CHECK( true == chunk.isOffDiagonalBlock() );
       CHECK( false == chunk.isDiagonalBlock() );
 
