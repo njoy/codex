@@ -64,6 +64,7 @@ SCENARIO( "SquareMatrix" ) {
         CHECK_THAT( 1.900000e+7, WithinRel( chunk.rowMetadata().energies()[9] ) );
         CHECK_THAT( 2.000000e+7, WithinRel( chunk.rowMetadata().energies()[10] ) );
 
+        CHECK( true == chunk.isRelativeBlock() );
         CHECK( false == chunk.isOffDiagonalBlock() );
         CHECK( true == chunk.isDiagonalBlock() );
 
