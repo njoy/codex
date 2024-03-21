@@ -29,7 +29,7 @@ jobs:
         cd ENDFtk
         mkdir build
         cd build
-        cmake -DPYTHON_EXECUTABLE=$(which python3) -D CMAKE_CXX_COMPILER=`which ${{matrix.cxx}}` -D CMAKE_BUILD_TYPE=${{matrix.build_type}} ..
+        cmake -DPYTHON_EXECUTABLE=$(which python3) -D CMAKE_CXX_COMPILER=`which ${{matrix.cxx}}` -D CMAKE_BUILD_TYPE=${{matrix.build_type}} -D ENDFtk.tests=OFF ..
         make -j2
         export PYTHONPATH=${PYTHONPATH}:$(pwd)
     - name: which CXX
