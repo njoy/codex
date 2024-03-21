@@ -47,5 +47,8 @@ jobs:
       run: make -j2
       working-directory: ./bin
     - name: ctest
-      run: ctest -j2
+      run: |
+        echo ${PYTHONPATH}
+        ln -s ../ENDFtk/build/*.so .
+        ctest -j2
       working-directory: ./bin
