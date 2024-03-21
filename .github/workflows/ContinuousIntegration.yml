@@ -23,6 +23,15 @@ jobs:
     steps:
     - name: Install numpy
       run: pip3 install numpy
+    - name: Install ENDFtk
+      run: |
+        git clone https://github.com/njoy/ENDFtk.git
+        cd ENDFtk
+        mkdir build
+        cd build
+        cmake -DPYTHON_EXECUTABLE=$(which python3) -D CMAKE_CXX_COMPILER=`which ${{matrix.cxx}}` -D CMAKE_BUILD_TYPE=${{matrix.build_type}} ..
+        make -j2
+        export PYTHONPATH=${PYTHONPATH}:$(pwd)
     - name: which CXX
       run: |
         which ${{matrix.cxx}}
