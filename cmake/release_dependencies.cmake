@@ -27,7 +27,7 @@ FetchContent_Declare( eigen
 
 FetchContent_Declare( ENDFtk
     GIT_REPOSITORY  https://github.com/njoy/ENDFtk.git
-    GIT_TAG         0d3a1df1e7ddbf3ba9277badee4d4b538aadba0b
+    GIT_TAG         7d9fb0779e0e69807669b577616b39b87e6dd168 # tag: v1.0.1
     )
 set( ENDFtk.python CACHE INTERNAL BOOL ON )
 
