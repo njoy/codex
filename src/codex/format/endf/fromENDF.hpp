@@ -12,16 +12,18 @@ namespace njoy {
 namespace codex {
 namespace format {
 
-  CovarianceBlock
-  fromENDF( NuclideID nuclide, ReactionID reaction,
-            const ENDFtk::section::SquareMatrix& endf ) {
+namespace endf {
 
-    // group structure used for the matrix
-    std::vector< double > energies( endf.energies().begin(),
-                                    endf.energies().end() );
+  std::vector< double >
+  structure( const ENDFtk::section::SquareMatrix& endf ) {
 
-    // covariance matrix
-    unsigned int size = energies.size() - 1;
+    return std::vector< double >( endf.energies().begin(), endf.energies().end() );
+  }
+
+  Matrix< double >
+  matrix( const ENDFtk::section::SquareMatrix& endf ) {
+
+    unsigned int size = endf.numberEnergies() - 1;
     Matrix< double > matrix( size, size );
     unsigned int index = 0;
     if ( endf.isSymmetric() ) {
@@ -48,9 +50,29 @@ namespace format {
         }
       }
     }
+    return matrix;
+  }
+}
 
-    return CovarianceBlock( MetaData( nuclide, reaction, std::move( energies ) ),
-                            std::move( matrix ) );
+  CovarianceBlock
+  fromENDF( NuclideID nuclide, ReactionID reaction,
+            const ENDFtk::section::SquareMatrix& endf ) {
+
+    return CovarianceBlock( MetaData( nuclide, reaction,
+                            endf::structure( endf ) ),
+                            endf::matrix( endf ) );
+  }
+
+  CovarianceBlock
+  fromENDF( NuclideID rowNuclide, ReactionID rowReaction,
+            NuclideID columnNuclide, ReactionID columnReaction,
+            const ENDFtk::section::SquareMatrix& endf ) {
+
+      auto rowStructure = endf::structure( endf );
+      auto columnStructure = rowStructure;
+      return CovarianceBlock( MetaData( rowNuclide, rowReaction, std::move( rowStructure ) ),
+                              MetaData( columnNuclide, columnReaction, std::move( columnStructure ) ),
+                              endf::matrix( endf ) );
   }
 
 } // formats namespace
