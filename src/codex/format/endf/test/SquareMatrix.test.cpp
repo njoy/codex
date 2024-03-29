@@ -5,7 +5,7 @@ using Catch::Matchers::WithinRel;
 using Catch::Matchers::WithinAbs;
 
 // what we are testing
-#include "codex/format/endf/fromENDF.hpp"
+#include "codex/format/endf/SquareMatrix.hpp"
 
 // other includes
 

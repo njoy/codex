@@ -3,7 +3,7 @@
 
 // local includes
 #include "codex/CovarianceBlock.hpp"
-#include "codex/format/endf/fromENDF.hpp"
+#include "codex/format/endf/SquareMatrix.hpp"
 
 // namespace aliases
 namespace python = pybind11;
