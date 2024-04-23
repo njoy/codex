@@ -7,16 +7,15 @@ include( FetchContent )
 
 FetchContent_Declare( tools
     GIT_REPOSITORY  https://github.com/njoy/tools
-    GIT_TAG         v0.2.0
+    GIT_TAG         feature/python-views
     GIT_SHALLOW     TRUE
     )
 
 FetchContent_Declare( ENDFtk
     GIT_REPOSITORY  https://github.com/njoy/ENDFtk.git
-    GIT_TAG         feature/python-extension
+    GIT_TAG         update/tools-dependency
     GIT_SHALLOW     TRUE
     )
-set( ENDFtk.python CACHE INTERNAL BOOL ON )
 
 FetchContent_Declare( Catch2
     GIT_REPOSITORY  https://github.com/catchorg/Catch2

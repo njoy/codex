@@ -33,8 +33,11 @@ cmake_dependent_option(
 cmake_dependent_option(
   codex.python
   "Build codex python bindings" ON
-  "NOT ${subproject}" OFF
+  "NOT ${subproject} OR DEFINED require.codex.python " OFF
 )
+if ( codex.python )
+  set( require.ENDFtk.python CACHE BOOL ON )
+endif()
 
 ########################################################################
 # Dependencies
@@ -99,6 +102,7 @@ if( codex.python )
       )
 
   target_link_libraries( codex.python PRIVATE codex )
+  add_dependencies( codex.python ENDFtk.python )
   target_include_directories( codex.python PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/python/src )
   target_compile_options( codex.python PRIVATE "-fvisibility=hidden" )
   set_target_properties( codex.python PROPERTIES OUTPUT_NAME codex )
@@ -108,8 +112,11 @@ if( codex.python )
   message( STATUS "Building codex's python API" )
 
   list( APPEND CODEX_PYTHONPATH ${CMAKE_CURRENT_BINARY_DIR} )
+  list( APPEND ENDFTK_PYTHONPATH ${CMAKE_CURRENT_BINARY_DIR}/_deps/endftk-build )
 
-  include( cmake/unit_testing_python.cmake )
+  if( codex.tests )
+    include( cmake/unit_testing_python.cmake )
+  endif()
 
 endif()
 

@@ -5,19 +5,9 @@ include( FetchContent )
 # Declare project dependencies
 #######################################################################
 
-FetchContent_Declare( catch-adapter
-    GIT_REPOSITORY  https://github.com/njoy/catch-adapter
-    GIT_TAG         fb84b82ebf7a4789aa43cea560680cf745c6ee4f
-    )
-
 FetchContent_Declare( Catch2
     GIT_REPOSITORY  https://github.com/catchorg/Catch2
     GIT_TAG         3f0283de7a9c43200033da996ff9093be3ac84dc # tag: v3.3.2
-    )
-
-FetchContent_Declare( disco
-    GIT_REPOSITORY  https://github.com/njoy/disco
-    GIT_TAG         2606933a854bb0269c4ec37143e1236797e27838
     )
 
 FetchContent_Declare( eigen
@@ -27,9 +17,13 @@ FetchContent_Declare( eigen
 
 FetchContent_Declare( ENDFtk
     GIT_REPOSITORY  https://github.com/njoy/ENDFtk.git
-    GIT_TAG         0d3a1df1e7ddbf3ba9277badee4d4b538aadba0b
+    GIT_TAG         d67492b23eae7f9fe9503fc6de89166f37202f49
     )
-set( ENDFtk.python CACHE INTERNAL BOOL ON )
+
+FetchContent_Declare( fast_float
+    GIT_REPOSITORY  https://github.com/fastfloat/fast_float
+    GIT_TAG         f476bc713fda06fbd34dc621b466745a574b3d4c # tag: v6.1.1
+    )
 
 FetchContent_Declare( pybind11
     GIT_REPOSITORY  https://github.com/pybind/pybind11
@@ -49,7 +43,7 @@ set( SPDLOG_BUILD_PIC CACHE INTERNAL BOOL ON )
 
 FetchContent_Declare( tools
     GIT_REPOSITORY  https://github.com/njoy/tools
-    GIT_TAG         25c9273d05601a9644feea6d7539250bf1d1c0dc # tag: v0.2.0
+    GIT_TAG         14596b303de7413167f4f4c030e2923cabd3f2a3
     )
 
 #######################################################################
@@ -57,9 +51,9 @@ FetchContent_Declare( tools
 #######################################################################
 
 FetchContent_MakeAvailable(
-    disco
     eigen
     ENDFtk
+    fast_float
     range-v3
     spdlog
     tools
