@@ -17,7 +17,7 @@ FetchContent_Declare( eigen
 
 FetchContent_Declare( ENDFtk
     GIT_REPOSITORY  https://github.com/njoy/ENDFtk.git
-    GIT_TAG         d67492b23eae7f9fe9503fc6de89166f37202f49
+    GIT_TAG         3d077281d1ca862a3561cd0687de845239c9f463 # tag: v1.1.0
     )
 
 FetchContent_Declare( fast_float
@@ -43,7 +43,7 @@ set( SPDLOG_BUILD_PIC CACHE INTERNAL BOOL ON )
 
 FetchContent_Declare( tools
     GIT_REPOSITORY  https://github.com/njoy/tools
-    GIT_TAG         14596b303de7413167f4f4c030e2923cabd3f2a3
+    GIT_TAG         368dbd9bd44754de616c46ffed0f80d2d16d8360 # tag: v0.3.0
     )
 
 #######################################################################

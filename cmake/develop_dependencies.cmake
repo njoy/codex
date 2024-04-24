@@ -7,13 +7,13 @@ include( FetchContent )
 
 FetchContent_Declare( tools
     GIT_REPOSITORY  https://github.com/njoy/tools
-    GIT_TAG         feature/python-views
+    GIT_TAG         v0.3.0
     GIT_SHALLOW     TRUE
     )
 
 FetchContent_Declare( ENDFtk
     GIT_REPOSITORY  https://github.com/njoy/ENDFtk.git
-    GIT_TAG         update/tools-dependency
+    GIT_TAG         v1.1.0
     GIT_SHALLOW     TRUE
     )
 
