@@ -54,26 +54,26 @@ namespace endf {
   }
 }
 
-  CovarianceBlock
-  fromENDF( NuclideID nuclide, ReactionID reaction,
-            const ENDFtk::section::SquareMatrix& endf ) {
+CovarianceBlock
+fromENDF( NuclideID nuclide, ReactionID reaction,
+          const ENDFtk::section::SquareMatrix& endf ) {
 
-    return CovarianceBlock( MetaData( nuclide, reaction,
-                            endf::structure( endf ) ),
+  return CovarianceBlock( MetaData( nuclide, reaction,
+                          endf::structure( endf ) ),
+                          endf::matrix( endf ) );
+}
+
+CovarianceBlock
+fromENDF( NuclideID rowNuclide, ReactionID rowReaction,
+          NuclideID columnNuclide, ReactionID columnReaction,
+          const ENDFtk::section::SquareMatrix& endf ) {
+
+    auto rowStructure = endf::structure( endf );
+    auto columnStructure = rowStructure;
+    return CovarianceBlock( MetaData( rowNuclide, rowReaction, std::move( rowStructure ) ),
+                            MetaData( columnNuclide, columnReaction, std::move( columnStructure ) ),
                             endf::matrix( endf ) );
-  }
-
-  CovarianceBlock
-  fromENDF( NuclideID rowNuclide, ReactionID rowReaction,
-            NuclideID columnNuclide, ReactionID columnReaction,
-            const ENDFtk::section::SquareMatrix& endf ) {
-
-      auto rowStructure = endf::structure( endf );
-      auto columnStructure = rowStructure;
-      return CovarianceBlock( MetaData( rowNuclide, rowReaction, std::move( rowStructure ) ),
-                              MetaData( columnNuclide, columnReaction, std::move( columnStructure ) ),
-                              endf::matrix( endf ) );
-  }
+}
 
 } // formats namespace
 } // codex namespace
